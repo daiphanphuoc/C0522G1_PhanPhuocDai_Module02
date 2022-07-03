@@ -13,42 +13,52 @@ public class ConvertNumberToString {
         int hundred = number / 100;
         String str = "";
         if (hundred > 0) {
-            str = str + readNumberUnit(hundred) + " hundred  ";
+            str = str + readNumberUnit(hundred) + " hundred and ";
         }
         if (dozen > 1) {
             if(hundred>0){
-                str = str  + "and " + readNumberDozen(dozen) + " " + readNumberUnit(unit);
+                str = str   + readNumberDozen(dozen) + " " + readNumberUnit(unit);
             }else{
                 str = str + readNumberDozen(dozen) + " " + readNumberUnit(unit);
             }
 
         } else if (dozen == 0) {
             if(unit>0){
-                str = str + " and " + readNumberUnit(unit);
+                str = str  + readNumberUnit(unit);
             }
 
         }else {
             switch (unit) {
                 case 1:
-                    str = str + " and eleven";
+                    str = str + " eleven";
+                    break;
                 case 2:
-                    str = str + " and twelve";
+                    str = str + " twelve";
+                    break;
                 case 3:
-                    str = str + " and thirteen";
+                    str = str + " thirteen";
+                    break;
                 case 4:
-                    str = str + " and fourteen";
+                    str = str + " fourteen";
+                    break;
                 case 5:
-                    str = str + " and fifteen";
+                    str = str + " fifteen";
+                    break;
                 case 6:
-                    str = str + " and sixteen";
+                    str = str + " sixteen";
+                    break;
                 case 7:
-                    str = str + " and seventeen";
+                    str = str + " seventeen";
+                    break;
                 case 8:
-                    str = str + " and eighteen";
+                    str = str + " eighteen";
+                    break;
                 case 9:
-                    str = str + " and nineteen";
+                    str = str + " nineteen";
+                    break;
                 case 0:
-                    str = str + " and ten";
+                    str = str + " ten";
+                    break;
             }
         }
         System.out.println(str);
