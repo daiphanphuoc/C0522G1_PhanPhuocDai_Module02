@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class FigureDisplay {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int choice=-1;
-        while (choice!=0){
+        int choice = -1;
+        while (choice != 0) {
 
             System.out.println("Menu: ");
             System.out.println("1. Draw Retangle:");
@@ -16,12 +16,13 @@ public class FigureDisplay {
             System.out.println("5. Draw square triangle bottom left:");
             System.out.println("6. Draw  triangle display:");
             System.out.println("7. Draw  triangle empty display:");
+            System.out.println("0. Exit.");
 
-            choice= sc.nextInt();
+            choice = sc.nextInt();
 
-            switch (choice){
+            switch (choice) {
                 case 1:
-                    rectangle(8,5);
+                    rectangle(8, 5);
                     break;
                 case 2:
                     squareTriangleTopLeft(6);
@@ -38,17 +39,13 @@ public class FigureDisplay {
                 case 6:
                     triangleDisplay(7);
                     break;
-                    case 7:
-                        triangleEmptyDisplay(7);
+                case 7:
+                    triangleEmptyDisplay(7);
                     break;
                 default:
                     System.out.println();
             }
         }
-
-
-
-
 
 
     }
@@ -123,9 +120,9 @@ public class FigureDisplay {
     public static void squareTriangleBottomRight(int height) {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < height; j++) {
-                if(i+j<height-1){
+                if (i + j < height - 1) {
                     System.out.print("   ");
-                }else{
+                } else {
                     System.out.print(" * ");
                 }
             }
