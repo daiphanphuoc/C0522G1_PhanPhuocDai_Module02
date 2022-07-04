@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class BodyMassIndex {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         double weight, height, bmi;
         System.out.print("Your weight (in kilogram):");
-        weight = scanner.nextDouble();
+        weight = sc.nextDouble();
 
         System.out.print("Your height (in meter):");
-        height = scanner.nextDouble();
+        height = sc.nextDouble();
         bmi = weight / Math.pow(height, 2);
         System.out.printf("%-20s%s", "bmi", "Interpretation\n");
 

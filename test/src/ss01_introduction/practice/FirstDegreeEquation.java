@@ -7,16 +7,16 @@ public class FirstDegreeEquation {
 
         System.out.println("Giải phương trình bâc nhất;");
         System.out.println("Cho phương trình dạng 'a * x + b = c', vui lòng nhập hằng số:");
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.print("a: ");
-        double a = scanner.nextDouble();
+        double a = sc.nextDouble();
 
         System.out.print("b: ");
-        double b = scanner.nextDouble();
+        double b = sc.nextDouble();
 
         System.out.print("c: ");
-        double c = scanner.nextDouble();
+        double c = sc.nextDouble();
 
         if (a != 0) {
             double answer = (c - b) / a;

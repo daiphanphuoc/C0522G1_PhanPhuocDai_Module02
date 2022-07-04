@@ -7,16 +7,16 @@ public class Bank {
         double money = 1.0;
         int month = 1;
         double interestRate = 1.0;
-        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter investment amount: ");
-        money = input.nextDouble();
+        money = sc.nextDouble();
 
         System.out.println("Enter number of months: ");
-        month = input.nextInt();
+        month = sc.nextInt();
 
         System.out.println("Enter annual interest rate in percentage: ");
-        interestRate = input.nextDouble();
+        interestRate = sc.nextDouble();
 
         double totalInterest = 0;
         for (int i = 0; i < month; i++) {

@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class DayOfMonth {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.print("Which month that you want to count days? ");
-        int month = scanner.nextInt();
+        int month = sc.nextInt();
         String daysInMonth;
         switch (month) {
             case 2:

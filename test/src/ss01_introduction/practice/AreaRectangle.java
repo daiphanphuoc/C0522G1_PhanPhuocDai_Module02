@@ -9,13 +9,13 @@ public class AreaRectangle {
         float width;
         float height;
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter width: ");
-        width = scanner.nextFloat();
+        width = sc.nextFloat();
 
         System.out.println("Enter height: ");
-        height = scanner.nextFloat();
+        height = sc.nextFloat();
         float area = width * height;
 
         //System.out.println("Area is: " + area);

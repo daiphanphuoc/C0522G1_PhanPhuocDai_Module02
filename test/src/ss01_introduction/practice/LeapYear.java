@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class LeapYear {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int year;
         System.out.println("Enter a year: ");
-        year = scanner.nextInt();
+        year = sc.nextInt();
 
         boolean isLeapYear = false;
 

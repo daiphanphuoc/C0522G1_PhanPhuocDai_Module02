@@ -1,15 +1,13 @@
 package ss00_test;
 
+import jdk.nashorn.internal.objects.NativeMath;
+
 public class Test {
+    public static void main(String[] args) {
+
+    }
 
 
-        static void method1(int a){  }
-
-        static void method1(float a){  }
-
-       // static void method1(int c){  }
-
-        static void method1(double d){  }
 
     }
 

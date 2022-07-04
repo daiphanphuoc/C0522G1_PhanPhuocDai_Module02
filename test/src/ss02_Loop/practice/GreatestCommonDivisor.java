@@ -7,11 +7,11 @@ public class GreatestCommonDivisor {
     public static void main(String[] args) {
         int a;
         int b;
-        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter a: ");
-        a = input.nextInt();
+        a = sc.nextInt();
         System.out.println("Enter b: ");
-        b = input.nextInt();
+        b = sc.nextInt();
 
         a = Math.abs(a);
         b = Math.abs(b);
