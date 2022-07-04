@@ -39,7 +39,7 @@ public class ArrayFinMin {
         System.out.print(Arrays.toString(arrOne));
 
         int index = minValue(arrOne);
-        System.out.println("The smallest element in the array is: " + arrOne[index]);
+        System.out.println("Phần tử nhỏ nhất của mảng: " + arrOne[index]);
     }
 }
 

@@ -7,8 +7,10 @@ public class CharOfString {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Nhập vào 1 chuỗi: ");
         String str = sc.nextLine();
+
         System.out.println("Nhập vào 1 ký tự:");
         char c= sc.nextLine().charAt(0);
 
@@ -19,6 +21,7 @@ public class CharOfString {
                 count++;
             }
         }
+
         System.out.printf(" ký tự '%c' xuất hiện %d lần trong chuỗi '%s'",c,count,str);
     }
 }

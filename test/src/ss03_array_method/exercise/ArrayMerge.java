@@ -16,15 +16,11 @@ public class ArrayMerge {
             }
         } while (size < 1);
 
-
         int[] arrOne = new int[size];
         for (int i = 0; i < arrOne.length; i++) {
             System.out.print("\nNhập vào phần tử thứ " + i + " : ");
             arrOne[i] = sc.nextInt();
         }
-
-        System.out.print("\nmảng vừa nhập: ");
-        System.out.print(Arrays.toString(arrOne));
 
         int[] arrTwo = new int[size];
         for (int i = 0; i < arrTwo.length; i++) {
@@ -32,23 +28,26 @@ public class ArrayMerge {
             arrTwo[i] = sc.nextInt();
         }
 
-        System.out.print("\nmảng vừa nhập: ");
+        System.out.print("\nmảng thứ nhất vừa nhập: ");
+        System.out.print(Arrays.toString(arrOne));
+        System.out.print("\nmảng thứ hai vừa nhập: ");
         System.out.print(Arrays.toString(arrTwo));
 
-        int[] arrMerge=mergeArray(arrOne,arrTwo);
+        int[] arrMerge = mergeArray(arrOne, arrTwo);
         System.out.print("\nmảng sau khi gộp: ");
         System.out.print(Arrays.toString(arrMerge));
 
     }
 
 
-    public static int[] mergeArray(int [] arrOne, int [] arrTwo){
-        int [ ] arr=new int[arrOne.length+arrTwo.length];
-        for (int i=0;i<arrOne.length;i++){
-            arr[i]=arrOne[i];
+    public static int[] mergeArray(int[] arrOne, int[] arrTwo) {
+        int[] arr = new int[arrOne.length + arrTwo.length];
+        for (int i = 0; i < arrOne.length; i++) {
+            arr[i] = arrOne[i];
         }
-        for (int i=0;i<arrTwo.length;i++){
-            arr[i+arrOne.length]=arrTwo[i];
+
+        for (int i = 0; i < arrTwo.length; i++) {
+            arr[i + arrOne.length] = arrTwo[i];
         }
         return arr;
     }

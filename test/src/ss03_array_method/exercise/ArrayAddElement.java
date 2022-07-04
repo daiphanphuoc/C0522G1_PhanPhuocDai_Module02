@@ -29,7 +29,16 @@ public class ArrayAddElement {
         System.out.println("nhập vào phần tử cần thêm: ");
         int value = sc.nextInt();
         System.out.println("Nhập vào vị trí cần thêm: ");
-        int index = sc.nextInt();
+        int index;
+        boolean isNotIndex;
+        do {
+            index = sc.nextInt();
+            isNotIndex = index < 0 || index >= arrNumber.length;
+            if (isNotIndex) {
+                System.out.println("Vị trí cần thêm bị sai, yêu cầu nhập lại: ");
+            }
+        } while (isNotIndex);
+
 
         arrNumber = addElement(arrNumber, value, index);
 
@@ -42,7 +51,6 @@ public class ArrayAddElement {
 
         int[] arrNew = new int[arr.length + 1];
 
-
         for (int i = 0; i < index; i++) {
             arrNew[i] = arr[i];
         }
@@ -50,8 +58,9 @@ public class ArrayAddElement {
         arrNew[index] = val;
 
         for (int i = index + 1; i < arrNew.length; i++) {
-            arrNew[i]=arr[i-1];
+            arrNew[i] = arr[i - 1];
         }
+
         return arrNew;
 
     }

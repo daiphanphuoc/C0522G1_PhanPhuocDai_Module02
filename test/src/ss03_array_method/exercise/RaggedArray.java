@@ -17,6 +17,7 @@ public class RaggedArray {
                 System.out.println("nhập sai, nhập lại: ");
             }
         } while (row < 1);
+
         int[][] arr2D = new int[row][];
 
         for (int i = 0; i < arr2D.length; i++) {
@@ -28,11 +29,14 @@ public class RaggedArray {
                     System.out.println("nhập sai, nhập lại: ");
                 }
             } while (col < 1);
+
             arr2D[i] = new int[col];
+
             for (int j = 0; j < col; j++) {
                 System.out.printf("Nhập vào phần tử thứ [%d][%d]:", i, j);
                 arr2D[i][j] = sc.nextInt();
             }
+
         }
 
         System.out.println("Mảng vừa nhập: ");

@@ -34,21 +34,23 @@ public class ArraySumCollum {
                 arr2D[i][j] = sc.nextDouble();
             }
         }
+
         int indexCol;
-        boolean isNotCol;
+        boolean isNotIndexCol;
         do {
             System.out.println("nhập vào cột cần tính tổng: ");
-             indexCol= sc.nextInt();
-             isNotCol=indexCol<0||indexCol>col-1;
-             if (isNotCol){
-                 System.out.println("không có cột, nhập lại:");
-             }
-        }while (isNotCol);
-        double sum=0d;
-        for (int i=0; i<arr2D.length;i++){
-            sum=sum+arr2D[i][indexCol];
+            indexCol = sc.nextInt();
+            isNotIndexCol = indexCol < 0 || indexCol > col - 1;
+            if (isNotIndexCol) {
+                System.out.println("không có cột, nhập lại:");
+            }
+        } while (isNotIndexCol);
+
+        double sum = 0d;
+        for (int i = 0; i < arr2D.length; i++) {
+            sum = sum + arr2D[i][indexCol];
         }
 
-        System.out.printf("%.2f là tổng các phần tử trên cột %d của mảng",sum,indexCol);
+        System.out.printf("%.2f là tổng các phần tử trên cột %d của mảng", sum, indexCol);
     }
 }

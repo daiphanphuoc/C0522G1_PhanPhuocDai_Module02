@@ -6,6 +6,7 @@ public class SquareMatrix {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         int row;
         do {
             System.out.println("Nhập vào chiều dài của ma trận vuông: ");
@@ -14,6 +15,7 @@ public class SquareMatrix {
                 System.out.println("nhập sai, nhập lại: ");
             }
         } while (row < 1);
+
         int [][] matrix = new int[row][row];
 
 
@@ -28,7 +30,6 @@ public class SquareMatrix {
         for (int i=0;i<matrix.length;i++){
             sum+=matrix[i][i];
         }
-
 
         System.out.printf("%d là tổng đường chéo chính của ma trận",sum);
     }
