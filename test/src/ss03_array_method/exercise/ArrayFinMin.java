@@ -18,28 +18,37 @@ public class ArrayFinMin {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int size;
-
-        do {
-            System.out.println("nhập vào chiều dài của mảng: ");
-            size = sc.nextInt();
-            if (size < 1) {
-                System.out.println("nhập sai, kiểm tra lại: ");
-            }
-        } while (size < 1);
+        int size =  inputPositive(sc,"nhập vào chiều dài của mảng: ");
 
 
         int[] arrOne = new int[size];
-        for (int i = 0; i < arrOne.length; i++) {
-            System.out.print("\nNhập vào phần tử thứ " + i + " : ");
-            arrOne[i] = sc.nextInt();
-        }
+        createArray(sc, arrOne);
+
 
         System.out.print("\nmảng vừa nhập: ");
         System.out.print(Arrays.toString(arrOne));
 
         int index = minValue(arrOne);
         System.out.println("Phần tử nhỏ nhất của mảng: " + arrOne[index]);
+    }
+
+    private static void createArray(Scanner sc, int[] arrOne) {
+        for (int i = 0; i < arrOne.length; i++) {
+            System.out.print("\nNhập vào phần tử thứ " + i + " : ");
+            arrOne[i] = sc.nextInt();
+        }
+    }
+
+    private static int inputPositive(Scanner sc, String target) {
+        int size;
+        do {
+            System.out.println(target);
+            size = sc.nextInt();
+            if (size < 1) {
+                System.out.println("nhập sai, kiểm tra lại: ");
+            }
+        } while (size < 1);
+        return size;
     }
 }
 

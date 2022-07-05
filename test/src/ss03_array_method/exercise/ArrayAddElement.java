@@ -6,22 +6,10 @@ import java.util.Scanner;
 public class ArrayAddElement {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int size;
-
-        do {
-            System.out.println("nhập vào chiều dài của mảng: ");
-            size = sc.nextInt();
-            if (size < 1) {
-                System.out.println("nhập sai, kiểm tra lại: ");
-            }
-        } while (size < 1);
-
+        int size = inputPositive(sc,"nhập vào chiều dài của mảng: ");
 
         int[] arrNumber = new int[size];
-        for (int i = 0; i < size; i++) {
-            System.out.println("Nhập vào phần tử thứ " + i + " : ");
-            arrNumber[i] = sc.nextInt();
-        }
+        createArray(sc, arrNumber);
 
         System.out.print("mảng vừa nhập: ");
         System.out.print(Arrays.toString(arrNumber));
@@ -45,6 +33,25 @@ public class ArrayAddElement {
         System.out.print("mảng sau khi thêm: ");
         System.out.print(Arrays.toString(arrNumber));
 
+    }
+
+    private static int inputPositive(Scanner sc, String target) {
+        int size;
+        do {
+            System.out.println(target);
+            size = sc.nextInt();
+            if (size < 1) {
+                System.out.println("nhập sai, kiểm tra lại: ");
+            }
+        } while (size < 1);
+        return size;
+    }
+
+    private static void createArray(Scanner sc, int[] arrNumber) {
+        for (int i = 0; i < arrNumber.length; i++) {
+            System.out.println("Nhập vào phần tử thứ " + i + " : ");
+            arrNumber[i] = sc.nextInt();
+        }
     }
 
     public static int[] addElement(int[] arr, int val, int index) {

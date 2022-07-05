@@ -8,35 +8,44 @@ public class ArrayMerge {
         Scanner sc = new Scanner(System.in);
         int size;
 
+        size = inputPositive(sc, "nhập vào chiều dài của mảng thứ nhất: ");
+        int[] arrOne = new int[size];
+        createArray(sc, arrOne);
+
+        size = inputPositive(sc, "nhập vào chiều dài của mảng thứ hai: ");
+        int[] arrTwo = new int[size];
+        createArray(sc, arrTwo);
+
+        displayArray(arrOne, "\nmảng thứ nhất vừa nhập: ");
+        displayArray(arrTwo, "\nmảng thứ hai vừa nhập: ");
+
+        int[] arrMerge = mergeArray(arrOne, arrTwo);
+        displayArray(arrMerge, "\nMảng sau khi gộp: ");
+
+    }
+
+    private static void createArray(Scanner sc, int[] arrOne) {
+        for (int i = 0; i < arrOne.length; i++) {
+            System.out.print("\nNhập vào phần tử thứ " + i + " : ");
+            arrOne[i] = sc.nextInt();
+        }
+    }
+
+    private static int inputPositive(Scanner sc, String target) {
+        int size;
         do {
-            System.out.println("nhập vào chiều dài của mảng: ");
+            System.out.println(target);
             size = sc.nextInt();
             if (size < 1) {
                 System.out.println("nhập sai, kiểm tra lại: ");
             }
         } while (size < 1);
+        return size;
+    }
 
-        int[] arrOne = new int[size];
-        for (int i = 0; i < arrOne.length; i++) {
-            System.out.print("\nNhập vào phần tử thứ " + i + " : ");
-            arrOne[i] = sc.nextInt();
-        }
-
-        int[] arrTwo = new int[size];
-        for (int i = 0; i < arrTwo.length; i++) {
-            System.out.print("\nNhập vào phần tử thứ " + i + " : ");
-            arrTwo[i] = sc.nextInt();
-        }
-
-        System.out.print("\nmảng thứ nhất vừa nhập: ");
+    private static void displayArray(int[] arrOne, String target) {
+        System.out.print(target);
         System.out.print(Arrays.toString(arrOne));
-        System.out.print("\nmảng thứ hai vừa nhập: ");
-        System.out.print(Arrays.toString(arrTwo));
-
-        int[] arrMerge = mergeArray(arrOne, arrTwo);
-        System.out.print("\nmảng sau khi gộp: ");
-        System.out.print(Arrays.toString(arrMerge));
-
     }
 
 

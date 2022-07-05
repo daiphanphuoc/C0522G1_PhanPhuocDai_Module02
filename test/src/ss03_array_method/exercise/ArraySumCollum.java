@@ -9,31 +9,14 @@ public class ArraySumCollum {
         Scanner sc = new Scanner(System.in);
 
         int row;
-        do {
-            System.out.println("Nhập vào chiều dài của ma trận: ");
-            row = sc.nextInt();
-            if (row < 1) {
-                System.out.println("nhập sai, nhập lại: ");
-            }
-        } while (row < 1);
+        row = inputPositive(sc, "Nhập vào chiều dài của ma trận: ");
 
         int col;
-        do {
-            System.out.println("Nhập vào cột của ma trận: ");
-            col = sc.nextInt();
-            if (col < 1) {
-                System.out.println("nhập sai, nhập lại: ");
-            }
-        } while (col < 1);
+        col = inputPositive(sc, "Nhập vào cột của ma trận: ");
 
         double[][] arr2D = new double[row][col];
 
-        for (int i = 0; i < arr2D.length; i++) {
-            for (int j = 0; j < col; j++) {
-                System.out.printf("Nhập vào phần tử thứ [%d][%d]:", i, j);
-                arr2D[i][j] = sc.nextDouble();
-            }
-        }
+        createArray2D(sc, arr2D);
 
         int indexCol;
         boolean isNotIndexCol;
@@ -52,5 +35,26 @@ public class ArraySumCollum {
         }
 
         System.out.printf("%.2f là tổng các phần tử trên cột %d của mảng", sum, indexCol);
+    }
+
+    private static void createArray2D(Scanner sc, double[][] arr2D) {
+        for (int i = 0; i < arr2D.length; i++) {
+            for (int j = 0; j < arr2D[i].length; j++) {
+                System.out.printf("Nhập vào phần tử thứ [%d][%d]:", i, j);
+                arr2D[i][j] = sc.nextDouble();
+            }
+        }
+    }
+
+    private static int inputPositive(Scanner sc, String s) {
+        int n;
+        do {
+            System.out.println(s);
+            n = sc.nextInt();
+            if (n < 1) {
+                System.out.println("nhập sai, nhập lại: ");
+            }
+        } while (n < 1);
+        return n;
     }
 }
