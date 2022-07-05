@@ -35,7 +35,7 @@ public class Prime {
     public static void isPrime20() {
         int i = 2;
         int count = 0;
-        while (true) {
+        while (count<20) {
 
             if (isPrime(i)) {
                 count++;
@@ -43,10 +43,6 @@ public class Prime {
             }
 
             i++;
-
-            if (count == 20) {
-                break;
-            }
 
         }
     }
