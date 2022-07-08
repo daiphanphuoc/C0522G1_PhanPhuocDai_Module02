@@ -72,6 +72,6 @@ public Triangle(double side1, double side2, double side3,String color,boolean fi
                 "side1=" + side1 +
                 ", side2=" + side2 +
                 ", side3=" + side3 +
-                "color="+ super.getColor()+'}';
+                ", color='"+ super.getColor()+"'}";
     }
 }

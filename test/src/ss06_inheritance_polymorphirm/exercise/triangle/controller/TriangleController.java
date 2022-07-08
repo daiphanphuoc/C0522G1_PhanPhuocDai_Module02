@@ -26,7 +26,7 @@ public class TriangleController {
 
         System.out.println("Nhập vào màu sắc của tam giác:");
         color = sc.nextLine();
-        
+
         boolean isTriangle;
         do {
             System.out.println("Nhập vào size cạnh 1 của tam giác:");
