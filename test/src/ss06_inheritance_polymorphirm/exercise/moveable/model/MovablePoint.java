@@ -1,4 +1,4 @@
-package ss06_inheritance_polymorphirm.exercise.moveable;
+package ss06_inheritance_polymorphirm.exercise.moveable.model;
 
 import ss06_inheritance_polymorphirm.exercise.point.model.Point2D;
 

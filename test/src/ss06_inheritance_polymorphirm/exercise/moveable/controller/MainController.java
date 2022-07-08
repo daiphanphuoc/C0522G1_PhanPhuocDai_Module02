@@ -1,6 +1,6 @@
 package ss06_inheritance_polymorphirm.exercise.moveable.controller;
 
-import ss06_inheritance_polymorphirm.exercise.moveable.MovablePoint;
+import ss06_inheritance_polymorphirm.exercise.moveable.model.MovablePoint;
 import ss06_inheritance_polymorphirm.exercise.point.model.Point2D;
 
 public class MainController {
