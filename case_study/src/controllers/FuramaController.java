@@ -5,11 +5,13 @@ import java.util.Scanner;
 public class FuramaController {
     static Scanner sc = new Scanner(System.in);
 
+
     public static void displayMainMenu() {
+
         int choice;
         do {
 
-            System.out.println("Menu: ");
+            System.out.println("Main Menu: ");
             System.out.println("1.\tEmployee Management:");
             System.out.println("2.\tCustomer Management");
             System.out.println("3.\tFacility Management ");
@@ -192,6 +194,6 @@ public class FuramaController {
     }
 
     public static void main(String[] args) {
-
+displayMainMenu();
     }
 }
