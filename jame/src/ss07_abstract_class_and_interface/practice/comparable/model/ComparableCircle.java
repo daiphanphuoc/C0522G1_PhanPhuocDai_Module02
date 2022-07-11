@@ -15,9 +15,12 @@ public class ComparableCircle extends Circle implements Comparable<ComparableCir
     public int compareTo(@NotNull ComparableCircle o) {
         if(getRadius()>o.getRadius()){
             return 1;
-        }else if(getRadius()<o.getRadius()){
+        }
+
+        if(getRadius()<o.getRadius()){
             return -1;
         }
+
         return 0;
     }
 }
