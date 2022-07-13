@@ -1,13 +1,13 @@
 package ss10_dsa_list.exercise._arraylist.controller;
 
 import ss10_dsa_list.exercise._arraylist.model.Person;
-import ss10_dsa_list.exercise._arraylist.service.MyListTest;
+import ss10_dsa_list.exercise._arraylist.service.MyListService;
 
 import java.util.Scanner;
 
 public class MyListController {
     Scanner sc = new Scanner(System.in);
-    MyListTest myListTest = new MyListTest();
+    MyListService myListService = new MyListService();
 
     public void displayMainMenu() {
         int choose;
@@ -36,46 +36,46 @@ public class MyListController {
 
                 case 1:
                     System.out.println("danh sách trước khi thêm:");
-                    myListTest.display();
+                    myListService.display();
 
-                    myListTest.addPerson();
+                    myListService.addPerson();
 
                     System.out.println("danh sách sau khi thêm:");
-                    myListTest.display();
+                    myListService.display();
                     break;
 
                 case 2:
                     System.out.println("danh sách trước khi thêm:");
-                    myListTest.display();
+                    myListService.display();
 
-                    index = myListTest.inputIndex("mời bạn nhập vào vị trí cần thêm:");
-                    myListTest.addPerson(index);
+                    index = myListService.inputIndex("mời bạn nhập vào vị trí cần thêm:");
+                    myListService.addPerson(index);
 
                     System.out.println("danh sách sau khi thêm:");
-                    myListTest.display();
+                    myListService.display();
                     break;
 
                 case 3:
 
                     System.out.println("danh sách trước khi xóa:");
-                    myListTest.display();
+                    myListService.display();
 
-                    index = myListTest.inputIndex("mời bạn nhập vào vị trí cần xóa:");
-                    myListTest.deletePerson(index);
+                    index = myListService.inputIndex("mời bạn nhập vào vị trí cần xóa:");
+                    myListService.deletePerson(index);
 
                     System.out.println("danh sách sau khi xóa:");
-                    myListTest.display();
+                    myListService.display();
                     break;
 
 
                 case 4:
-                    myListTest.survive(myListTest.createPerson());
+                    myListService.survive(myListService.createPerson());
                     break;
 
 
                 case 5:
-                    index = myListTest.inputIndex("mời bạn nhập vào vị trí cần lấy ra:");
-                    Person person=myListTest.getPerson(index);
+                    index = myListService.inputIndex("mời bạn nhập vào vị trí cần lấy ra:");
+                    Person person= myListService.getPerson(index);
                     System.out.println(person);
                     break;
                 case 6:

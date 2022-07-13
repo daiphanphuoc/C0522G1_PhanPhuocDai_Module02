@@ -1,10 +1,11 @@
 package ss10_dsa_list.exercise._arraylist.service;
 
+import ss10_dsa_list.exercise._arraylist.model.MyList;
 import ss10_dsa_list.exercise._arraylist.model.Person;
 
 import java.util.Scanner;
 
-public class MyListTest {
+public class MyListService implements IMyListService{
     Scanner sc = new Scanner(System.in);
     static MyList<Person> people;
 

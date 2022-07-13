@@ -1,4 +1,4 @@
-package ss10_dsa_list.exercise._arraylist.service;
+package ss10_dsa_list.exercise._arraylist.model;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,7 +22,7 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
     /**
      * Mảng chứa các phần tử
      */
-    Object elementData[];
+    public Object elementData[];
 
     /**
      * contructor không có tham số , khởi tạo mảng có sức chứa mặc định
