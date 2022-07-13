@@ -15,6 +15,12 @@ public class MyListTest {
         people.add(new Person("Ân", "200456234", "20-02-2000", true, "0902323478", "an99@gmail.com"));
     }
 
+    public void display(){
+        for (int i=0;i<people.size();i++){
+            System.out.println(people.elementData[i]);
+        }
+    }
+
     public Person createPerson(){
         System.out.println("Nhập vào tên");
         String name = sc.nextLine();
@@ -26,7 +32,7 @@ public class MyListTest {
         String birthday = sc.nextLine();
 
         System.out.println("Nhập vào giới tính:");
-        boolean sex = sc.nextBoolean();
+        boolean sex = Boolean.parseBoolean(sc.nextLine());
 
         System.out.println("Nhập vào số điện thoại:");
         String phone = sc.nextLine();
@@ -37,18 +43,33 @@ public class MyListTest {
         return new Person(name,iDCitizen,birthday,sex,phone,email);
 
     }
+
     public void addPerson() {
         people.add(createPerson());
     }
+
     public int inputIndex(String str){
         System.out.println(str);
         return sc.nextInt();
     }
+
     public void addPerson(int index) {
         people.add(index,createPerson());
     }
+
     public void deletePerson(int index){
         people.remove(index);
     }
 
+    public void survive(Person person){
+        if(people.contains(person)){
+            System.out.println("tồn tại trong danh sách");
+        }else{
+            System.out.println("không tồn tại trong danh sách");
+        }
+    }
+
+    public Person getPerson(int index){
+        return people.get(index);
+    }
 }

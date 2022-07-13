@@ -169,6 +169,7 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
             elementData[i]=elementData[i+1];
         }
         elementData[size-1]=null;
+        size--;
         return element;
     }
 
