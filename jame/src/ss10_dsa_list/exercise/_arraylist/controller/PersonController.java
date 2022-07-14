@@ -1,13 +1,13 @@
 package ss10_dsa_list.exercise._arraylist.controller;
 
 import ss10_dsa_list.exercise._arraylist.model.Person;
-import ss10_dsa_list.exercise._arraylist.service.MyListService;
+import ss10_dsa_list.exercise._arraylist.service.impl.PersonService;
 
 import java.util.Scanner;
 
-public class MyListController {
+public class PersonController {
     Scanner sc = new Scanner(System.in);
-    MyListService myListService = new MyListService();
+    PersonService myListService = new PersonService();
 
     public void displayMainMenu() {
         int choose;

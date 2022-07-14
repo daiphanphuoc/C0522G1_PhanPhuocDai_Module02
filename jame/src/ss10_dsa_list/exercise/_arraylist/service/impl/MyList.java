@@ -1,4 +1,4 @@
-package ss10_dsa_list.exercise._arraylist.model;
+package ss10_dsa_list.exercise._arraylist.service.impl;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,7 +22,7 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
     /**
      * Mảng chứa các phần tử
      */
-    public Object elementData[];
+    transient Object elementData[];// non-private to simplify nested class access
 
     /**
      * contructor không có tham số , khởi tạo mảng có sức chứa mặc định
@@ -44,8 +44,13 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
                     capacity);
         }
     }
-
+    private static final Object[] EMPTY_ELEMENTS = {};
     public void trimToSize() {
+        if (size < elementData.length) {
+            elementData = (size == 0)
+                    ? EMPTY_ELEMENTS
+                    : Arrays.copyOf(elementData, size);
+        }
 
     }
 
@@ -98,7 +103,7 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
     }
 
     /**
-     * phương thức xóa MyList
+     * phương thức xóa data MyList
      */
     public void clear() {
         for (int i = 0; i < size; i++) {

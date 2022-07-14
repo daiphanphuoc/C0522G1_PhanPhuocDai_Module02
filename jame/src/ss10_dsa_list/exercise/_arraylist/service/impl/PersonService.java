@@ -1,13 +1,13 @@
-package ss10_dsa_list.exercise._arraylist.service;
+package ss10_dsa_list.exercise._arraylist.service.impl;
 
-import ss10_dsa_list.exercise._arraylist.model.MyList;
 import ss10_dsa_list.exercise._arraylist.model.Person;
+import ss10_dsa_list.exercise._arraylist.service.IPersonService;
 
 import java.util.Scanner;
 
-public class MyListService implements IMyListService{
+public class PersonService implements IPersonService {
     Scanner sc = new Scanner(System.in);
-    static MyList<Person> people;
+    public static MyList<Person> people;
 
     static {
         people = new MyList<Person>();
