@@ -110,7 +110,12 @@ public class ProductManagerService implements IService<Product> {
 
     @Override
     public void reverse() {
-        Collections.reverse(ProductManager.productArrayList);
+        Collections.sort(ProductManager.productArrayList, new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return o1.getUnitPrice()<o2.getUnitPrice()?1:-1;
+            }
+        });
         //ProductManager.productArrayList.sort(Comparator.reverseOrder());
     }
 }
