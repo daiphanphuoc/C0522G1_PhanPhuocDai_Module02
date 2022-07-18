@@ -1,6 +1,5 @@
 package exercise.transportation_management.service.impl;
 
-import exercise.transportation_management.model.Motorcycle;
 import exercise.transportation_management.model.Transport;
 import exercise.transportation_management.model.Truck;
 import exercise.transportation_management.service.TruckService;
@@ -29,13 +28,13 @@ public class TruckServiceImpl extends TransportServiceImpl implements TruckServi
 
     @Override
     public void add() {
-        ServiceImpl.transportList.add(createTruck());
+        DataServiceImpl.transportList.add(createTruck());
     }
 
     @Override
     public void display() {
 
-        for (Transport transport : ServiceImpl.transportList) {
+        for (Transport transport : DataServiceImpl.transportList) {
             if (transport instanceof Truck) {
                 System.out.println(transport);
             }

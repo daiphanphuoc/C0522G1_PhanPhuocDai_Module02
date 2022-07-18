@@ -1,6 +1,5 @@
 package exercise.transportation_management.service.impl;
 
-import exercise.student_management.service.impl.DataService;
 import exercise.transportation_management.model.Transport;
 import exercise.transportation_management.service.TransportService;
 
@@ -19,13 +18,13 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public void delete(String id) {
-        for (Transport transport : ServiceImpl.transportList) {
+        for (Transport transport : DataServiceImpl.transportList) {
             if (id.equals(transport.getSeaOfControl())) {
                 System.out.println("Bạn chắc chắn xóa 1.yes:" + transport);
                 int isRemove = Integer.parseInt(sc.nextLine());
 
                 if (isRemove == 1) {
-                    ServiceImpl.transportList.remove(transport);
+                    DataServiceImpl.transportList.remove(transport);
                     System.out.println("Bạn đã xóa thành công!");
                 }
 
@@ -42,13 +41,13 @@ public class TransportServiceImpl implements TransportService {
 
     @Override
     public void display() {
-        for (Transport transport : ServiceImpl.transportList) {
+        for (Transport transport : DataServiceImpl.transportList) {
             System.out.println(transport);
         }
     }
 
     public Transport find(String id){
-        for (Transport transport : ServiceImpl.transportList) {
+        for (Transport transport : DataServiceImpl.transportList) {
             if (id.equals(transport.getSeaOfControl())){
                 return transport;
             }

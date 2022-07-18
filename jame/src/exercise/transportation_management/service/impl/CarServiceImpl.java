@@ -37,12 +37,12 @@ public class CarServiceImpl extends TransportServiceImpl implements CarService {
 
     @Override
     public void add() {
-        ServiceImpl.transportList.add(createCar());
+        DataServiceImpl.transportList.add(createCar());
     }
 
     @Override
     public void display() {
-        for (Transport transport: ServiceImpl.transportList ) {
+        for (Transport transport: DataServiceImpl.transportList ) {
             if(transport instanceof Car){
                 System.out.println(transport);
             }

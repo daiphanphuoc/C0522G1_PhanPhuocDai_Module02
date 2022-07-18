@@ -8,7 +8,7 @@ import exercise.transportation_management.model.Truck;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceImpl {
+public class DataServiceImpl {
     public static List<Transport> transportList = new ArrayList<>();
 
     static {
