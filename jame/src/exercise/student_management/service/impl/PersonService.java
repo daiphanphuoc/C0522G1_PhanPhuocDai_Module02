@@ -4,6 +4,7 @@ import exercise.student_management.model.Person;
 import exercise.student_management.service.IPersonService;
 import exercise.student_management.service.IService;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public  class PersonService implements  IPersonService {
@@ -41,5 +42,15 @@ public  class PersonService implements  IPersonService {
                 break;
             }
         }
+    }
+
+    @Override
+    public Object find(String id) {
+        return null;
+    }
+
+    @Override
+    public ArrayList search(String name) {
+        return null;
     }
 }

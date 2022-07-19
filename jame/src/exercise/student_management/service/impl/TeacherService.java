@@ -1,9 +1,12 @@
 package exercise.student_management.service.impl;
 
 import exercise.student_management.model.Person;
+import exercise.student_management.model.Student;
 import exercise.student_management.model.Teacher;
 import exercise.student_management.service.ITeacherService;
+import exercise.student_management.until.Until;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TeacherService extends PersonService implements ITeacherService {
@@ -41,6 +44,33 @@ public class TeacherService extends PersonService implements ITeacherService {
                 System.out.println(person);
             }
         }
+    }
+
+    @Override
+    public Teacher find(String id) {
+        for (Person person : DataService.personList) {
+            if (person instanceof Teacher) {
+                if (person.getID().equals(id)) {
+                    return (Teacher) person;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Teacher> search(String name) {
+        name = name.toLowerCase().trim();
+        ArrayList<Teacher> teachers = new ArrayList<>();
+        for (Person person : DataService.personList) {
+            if (person instanceof Teacher) {
+                if (Until.approximateComparison(person.getName(), name)) {
+                    teachers.add((Teacher) person);
+                }
+            }
+        }
+        // System.out.println(students.size());
+        return teachers;
     }
 
 }

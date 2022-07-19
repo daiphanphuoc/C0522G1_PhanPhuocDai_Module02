@@ -4,6 +4,7 @@ import exercise.student_management.model.Person;
 import exercise.student_management.model.Student;
 import exercise.student_management.service.IService;
 import exercise.student_management.service.IStudentService;
+import exercise.student_management.until.Until;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -64,7 +65,7 @@ public class StudentService extends PersonService implements IStudentService {
         ArrayList<Student> students = new ArrayList<>();
         for (Person person : DataService.personList) {
             if (person instanceof Student) {
-                if (approximateComparison(person.getName(), name)) {
+                if (Until.approximateComparison(person.getName(), name)) {
                     students.add((Student) person);
                 }
             }
@@ -73,26 +74,6 @@ public class StudentService extends PersonService implements IStudentService {
         return students;
     }
 
-    public boolean approximateComparison(String str1, String str2) {
-       str1=str1.toLowerCase().trim();
-       str2=str2.toLowerCase().trim();
 
-        if(str1.equals(str2)){
-            return true;
-        }
-
-        String[] arrStringOne = str1.split(" ");
-        String[] arrStringTwo = str2.split(" ");
-
-        for (int i = 0; i < arrStringOne.length; i++) {
-            for (int j = 0; j < arrStringTwo.length; j++) {
-                if (arrStringOne[i].equals(arrStringTwo[j])&& arrStringOne[i].length()>1) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 
 }
