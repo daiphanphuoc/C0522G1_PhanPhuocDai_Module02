@@ -16,9 +16,9 @@ public class DataService {
         personList.add(new Teacher("1111","Công","1991-1-1",true,"Tin"));
         personList.add(new Teacher("1112","Hải TT","1996-1-1",true,"Tin"));
         personList.add(new Student("113","Ân","1993-1-1",true,"c05",3.7));
-        personList.add(new Student("114","Tiến","1997-1-1",true,"c05",8.7));
+        personList.add(new Student("114","Anh Tiến","1997-1-1",true,"c05",8.7));
         personList.add(new Student("115","Anh","1996-1-1",true,"c05",4.7));
-        personList.add(new Teacher("1113","Quang","1995-1-1",true,"Tin"));
+        personList.add(new Teacher("1113","Quang Anh","1995-1-1",true,"Tin"));
         personList.add(new Teacher("1114","Chánh","1986-1-1",true,"Tin"));
         personList.add(new Teacher("1115","Trung","1976-1-1",true,"Tin"));
     }
