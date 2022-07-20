@@ -1,5 +1,6 @@
 package exercise.student_management.controller;
 
+import exercise.student_management.model.Person;
 import exercise.student_management.model.Student;
 import exercise.student_management.model.Teacher;
 import exercise.student_management.service.impl.StudentService;
@@ -33,11 +34,11 @@ public class SearchController {
                 case 2:
                     System.out.println("Nhập vào tên sinh viên cần tìm");
                      name =sc.nextLine();
-                    ArrayList<Student> students=studentService.search(name);
+                    ArrayList<Person> students=studentService.search(name);
 
                     if(students.size()>0){
                         System.out.println("những sinh viên có liên quan với tên:" +name);
-                        for (Student student:students){
+                        for (Person student:students){
                             System.out.println(student);
                         }
                     }else {
@@ -54,11 +55,11 @@ public class SearchController {
                 case 4:
                     System.out.println("Nhập vào tên giảng viên cần tìm");
                      name =sc.nextLine();
-                    ArrayList<Teacher> teachers=teacherService.search(name);
+                    ArrayList<Person> teachers=teacherService.search(name);
 
                     if(teachers.size()>0){
                         System.out.println("những giảng viên có liên quan với tên:" +name);
-                        for (Teacher teacher:teachers){
+                        for (Person teacher:teachers){
                             System.out.println(teacher);
                         }
                     }else {

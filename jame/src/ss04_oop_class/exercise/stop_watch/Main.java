@@ -13,7 +13,7 @@ public class Main {
         bubbleSort(arr);
         stopWatch.setEndTime();
 
-        System.out.println("Time run bubble sort: " +  stopWatch.getElapsedTime());
+        System.out.println("Time run bubble sort: " + stopWatch.getElapsedTime());
 
         createArrayRandom(arr);
 
@@ -21,7 +21,7 @@ public class Main {
         selectionSort(arr);
         stopWatch.setEndTime();
 
-        System.out.printf("Time run selection sort: %d\n",  stopWatch.getElapsedTime());
+        System.out.printf("Time run selection sort: %d\n", stopWatch.getElapsedTime());
 
         createArrayRandom(arr);
 
@@ -29,13 +29,13 @@ public class Main {
         insertionSort(arr);
         stopWatch.setEndTime();
 
-        System.out.printf("Time run insertion sort: %d\n",  stopWatch.getElapsedTime());
+        System.out.printf("Time run insertion sort: %d\n", stopWatch.getElapsedTime());
 
         long[] arr1 = new long[100000000];
         createArrayRandom(arr1);
 
         stopWatch.setStarTime();
-        quickSort(arr1,0,arr1.length-1);
+        quickSort(arr1, 0, arr1.length - 1);
         stopWatch.setEndTime();
 
         System.out.printf("Time run quick sort: %d\n", stopWatch.getElapsedTime());
@@ -50,13 +50,16 @@ public class Main {
 
     private static void bubbleSort(long @NotNull [] arr) {
         int length = arr.length;
-        for (int i = 0; i < length; i++) {
+        boolean isNext = true;
+        for (int i = 0; i < length && isNext; i++) {
+            isNext = false;
             for (int j = length - 1; j > i; j--) {
 
                 if (arr[j] < arr[j - 1]) {
                     long temp = arr[j];
                     arr[j] = arr[j - 1];
                     arr[j - 1] = temp;
+                    isNext = true;
                 }
 
             }

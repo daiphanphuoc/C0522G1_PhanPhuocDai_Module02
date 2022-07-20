@@ -1,4 +1,6 @@
 package exercise.student_management.service;
 
-public interface IPersonService extends IService{
+import exercise.student_management.model.Person;
+
+public interface IPersonService extends IService<Person>{
 }

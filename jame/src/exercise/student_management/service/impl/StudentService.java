@@ -60,13 +60,13 @@ public class StudentService extends PersonService implements IStudentService {
         return null;
     }
 
-    public ArrayList<Student> search(String name) {
+    public ArrayList<Person> search(String name) {
         name = name.toLowerCase().trim();
-        ArrayList<Student> students = new ArrayList<>();
+        ArrayList<Person> students = new ArrayList<>();
         for (Person person : DataService.personList) {
             if (person instanceof Student) {
                 if (Until.approximateComparison(person.getName(), name)) {
-                    students.add((Student) person);
+                    students.add( person);
                 }
             }
         }

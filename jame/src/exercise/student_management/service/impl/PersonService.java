@@ -2,13 +2,16 @@ package exercise.student_management.service.impl;
 
 import exercise.student_management.model.Person;
 import exercise.student_management.service.IPersonService;
-import exercise.student_management.service.IService;
+import exercise.student_management.until.Until;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public  class PersonService implements  IPersonService {
     private Scanner sc = new Scanner(System.in);
+
 
     @Override
     public void add() {
@@ -45,12 +48,30 @@ public  class PersonService implements  IPersonService {
     }
 
     @Override
-    public Object find(String id) {
+    public Person find(String id) {
         return null;
     }
 
     @Override
-    public ArrayList search(String name) {
+    public ArrayList<Person> search(String name) {
         return null;
     }
+
+    public  void insertionSort(@NotNull List<Person> list ){
+        for (int i=1;i<list.size();i++){
+            Person key=list.get(i);
+            int j=i;
+            for(;j>0;j--){
+
+                if(Until.compareString(key.getName(),list.get(j-1).getName())==-1){
+                    list.set(j,list.get(j-1));
+                }else{
+                    break;
+                }
+            }
+            list.set(j,key);
+        }
+    }
+
+
 }

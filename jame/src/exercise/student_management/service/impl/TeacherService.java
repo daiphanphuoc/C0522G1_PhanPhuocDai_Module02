@@ -59,13 +59,13 @@ public class TeacherService extends PersonService implements ITeacherService {
     }
 
     @Override
-    public ArrayList<Teacher> search(String name) {
+    public ArrayList<Person> search(String name) {
         name = name.toLowerCase().trim();
-        ArrayList<Teacher> teachers = new ArrayList<>();
+        ArrayList<Person> teachers = new ArrayList<>();
         for (Person person : DataService.personList) {
             if (person instanceof Teacher) {
                 if (Until.approximateComparison(person.getName(), name)) {
-                    teachers.add((Teacher) person);
+                    teachers.add( person);
                 }
             }
         }

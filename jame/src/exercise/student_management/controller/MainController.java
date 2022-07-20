@@ -9,13 +9,15 @@ public class MainController {
         DisplayController displayController=new DisplayController();
         DeleteController deleteController=new DeleteController();
         SearchController searchController=new SearchController();
+        SortController sortController=new SortController();
         do {
             System.out.println("---CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN--\n"+
                     "1.Thêm mới\n"+
                     "2.Xóa\n"+
                     "3. Hiển thị danh sách\n"+
                     "4.tìm kiếm\n" +
-                    "5.Thoát");
+                    "5.Sắp xếp.\n" +
+                    "6.Thoát");
             System.out.println("chọn chức năng:");
             int choose = Integer.parseInt(sc.nextLine());
             switch (choose){
@@ -35,7 +37,11 @@ public class MainController {
                     searchController.menuSearch();
                     break;
                 }
-                case 5:{
+                case 5: {
+                    sortController.sort();
+                    break;
+                }
+                case 6:{
 
                     System.exit(1);
                 }
