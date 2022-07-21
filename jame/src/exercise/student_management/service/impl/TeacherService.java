@@ -1,5 +1,6 @@
 package exercise.student_management.service.impl;
 
+import exercise.student_management._exception.DuplicateIDException;
 import exercise.student_management.model.Person;
 import exercise.student_management.model.Student;
 import exercise.student_management.model.Teacher;
@@ -28,19 +29,40 @@ public class TeacherService extends PersonService implements ITeacherService {
         System.out.print("Nhập vào chuyên môn:");
         String specialize = sc.nextLine();
 
-        return new Teacher(id,name,day,sex,specialize);
+        return new Teacher(id, name, day, sex, specialize);
     }
 
 
     @Override
     public void add() {
-        DataService.personList.add(createTeacher());
+        Teacher teacher;
+        while (true) {
+
+            try {
+                teacher = createTeacher();
+
+                for (Person person : DataService.personList) {
+                    if (person.getID().equals(teacher.getID())) {
+                        throw new DuplicateIDException("Trùng mã");
+                    }
+                }
+
+                DataService.personList.add(teacher);
+                break;
+
+            } catch (DuplicateIDException e) {
+                e.getMessage();
+                e.printStackTrace();
+            }
+        }
+
     }
+
 
     @Override
     public void display() {
-        for (Person person:DataService.personList){
-            if(person instanceof Teacher){
+        for (Person person : DataService.personList) {
+            if (person instanceof Teacher) {
                 System.out.println(person);
             }
         }
@@ -65,7 +87,7 @@ public class TeacherService extends PersonService implements ITeacherService {
         for (Person person : DataService.personList) {
             if (person instanceof Teacher) {
                 if (Until.approximateComparison(person.getName(), name)) {
-                    teachers.add( person);
+                    teachers.add(person);
                 }
             }
         }

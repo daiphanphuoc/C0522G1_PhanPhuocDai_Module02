@@ -1,5 +1,6 @@
 package exercise.student_management.service.impl;
 
+import exercise.student_management._exception.DuplicateIDException;
 import exercise.student_management.model.Person;
 import exercise.student_management.model.Student;
 import exercise.student_management.service.IService;
@@ -29,15 +30,44 @@ public class StudentService extends PersonService implements IStudentService {
         System.out.print("Nhập vào lớp:");
         String grade = sc.nextLine();
 
-        System.out.print("Nhập vào điểm số:");
-        double score = Double.parseDouble(sc.nextLine());
+        double score;
+        while (true) {
+            try {
+                System.out.print("Nhập vào điểm số:");
+                score = Double.parseDouble(sc.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Bạn phải nhập số! Nhập lại.");
+                System.out.println(e.getMessage());
+            }
+        }
+
 
         return new Student(id, name, day, sex, grade, score);
     }
 
     @Override
     public void add() {
-        DataService.personList.add(createStudent());
+        Student student;
+        while (true) {
+            try {
+                student = createStudent();
+
+                for (Person person : DataService.personList) {
+                    if (person.getID().equals(student.getID())) {
+                        throw new DuplicateIDException("Trùng mã");
+                    }
+                }
+
+                DataService.personList.add(student);
+                break;
+
+            } catch (DuplicateIDException e) {
+                e.getMessage();
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
@@ -66,14 +96,13 @@ public class StudentService extends PersonService implements IStudentService {
         for (Person person : DataService.personList) {
             if (person instanceof Student) {
                 if (Until.approximateComparison(person.getName(), name)) {
-                    students.add( person);
+                    students.add(person);
                 }
             }
         }
-       // System.out.println(students.size());
+        // System.out.println(students.size());
         return students;
     }
-
 
 
 }
