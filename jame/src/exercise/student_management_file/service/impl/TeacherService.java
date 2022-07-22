@@ -4,29 +4,29 @@ import exercise.student_management_file._exception.DuplicateIDException;
 import exercise.student_management_file.model.Person;
 import exercise.student_management_file.model.Teacher;
 import exercise.student_management_file.service.ITeacherService;
+import exercise.student_management_file.until.UtilCompare;
 import exercise.student_management_file.until.UtilFile;
+import exercise.student_management_file.until.UtilInput;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class TeacherService extends PersonService implements ITeacherService {
+public class TeacherService implements ITeacherService {
     private Scanner sc = new Scanner(System.in);
 
     public Teacher createTeacher() {
-        System.out.print("Nhập vào mã:");
-        String id = sc.nextLine();
+        String id = UtilInput.getString("Nhập vào mã:");
 
-        System.out.print("Nhập vào tên:");
-        String name = sc.nextLine();
+        String name = UtilInput.getString("Nhập vào tên:");
 
-        System.out.print("Nhập vào ngày sinh:");
-        String day = sc.nextLine();
+        String day = UtilInput.getString("Nhập vào ngày sinh:");
 
-        System.out.print("Nhập vào giới tính:(true/false)");
-        boolean sex = Boolean.parseBoolean(sc.nextLine());
+        boolean sex = UtilInput.getBoolean("Nhập vào giới tính:(true/false)");
 
-        System.out.print("Nhập vào chuyên môn:");
-        String specialize = sc.nextLine();
+        String specialize = UtilInput.getString("Nhập vào chuyên môn:");
 
         return new Teacher(id, name, day, sex, specialize);
     }
@@ -34,19 +34,22 @@ public class TeacherService extends PersonService implements ITeacherService {
 
     @Override
     public void add() {
+        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+
         Teacher teacher;
         while (true) {
 
             try {
                 teacher = createTeacher();
 
-                for (Person person : DataService.personList) {
-                    if (person.getID().equals(teacher.getID())) {
+                for (Teacher item : DataService.teacherList) {
+                    if (item.getID().equals(teacher.getID())) {
                         throw new DuplicateIDException("Trùng mã");
                     }
                 }
 
-                DataService.personList.add(teacher);
+                DataService.teacherList.add(teacher);
+                UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, DataService.teacherList);
                 break;
 
             } catch (DuplicateIDException e) {
@@ -60,38 +63,76 @@ public class TeacherService extends PersonService implements ITeacherService {
 
     @Override
     public void display() {
-        for (Person person : DataService.personList) {
-            if (person instanceof Teacher) {
-                System.out.println(person);
+        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        for (Teacher teacher : DataService.teacherList) {
+            if (teacher instanceof Teacher) {
+                System.out.println(teacher);
             }
+        }
+
+    }
+
+    @Override
+    public void delete(String id) {
+        Teacher teacher = find(id);
+        if (teacher != null) {
+            DataService.teacherList.remove(teacher);
+            UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, DataService.teacherList);
+            System.out.println("Xóa thành công!");
+        } else {
+            System.out.println("Không tìm thấy!");
         }
     }
 
     @Override
     public Teacher find(String id) {
-        for (Person person : DataService.personList) {
-            if (person instanceof Teacher) {
-                if (person.getID().equals(id)) {
-                    return (Teacher) person;
-                }
+        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+
+        for (Teacher teacher : DataService.teacherList) {
+            if (teacher.getID().equals(id)) {
+                return teacher;
             }
         }
+
         return null;
     }
 
     @Override
-    public ArrayList<Person> search(String name) {
-        name = name.toLowerCase().trim();
-        ArrayList<Person> teachers = new ArrayList<>();
-        for (Person person : DataService.personList) {
-            if (person instanceof Teacher) {
-                if (UtilFile.approximateComparison(person.getName(), name)) {
-                    teachers.add(person);
-                }
+    public ArrayList<Teacher> search(String name) {
+        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        ArrayList<Teacher> teachers = new ArrayList<>();
+        for (Teacher item : DataService.teacherList) {
+            if (UtilCompare.approximateComparison(item.getName(), name)) {
+                teachers.add(item);
             }
         }
+
         // System.out.println(students.size());
         return teachers;
+    }
+
+    @Override
+    public void insertionSort() {
+        DataService.teacherList=UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        for (int i = 1; i < DataService.teacherList.size(); i++) {
+            Teacher key =  DataService.teacherList.get(i);
+            int j = i;
+            for (; j > 0; j--) {
+
+                if (UtilCompare.compareString(key.getName(), ( DataService.teacherList.get(j - 1)).getName()) == -1) {
+                    DataService.teacherList.set(j, DataService.teacherList.get(j - 1));
+                } else {
+                    break;
+                }
+            }
+            DataService.teacherList.set(j, key);
+        }
+        UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER,DataService.teacherList);
+    }
+
+    @Override
+    public void update(String string) {
+
     }
 
 }

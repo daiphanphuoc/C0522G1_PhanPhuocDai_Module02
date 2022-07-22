@@ -29,9 +29,9 @@ public class Student extends Person {
     }
 
     public void setScore(double score) throws DuplicateIDException {
-        if(score<0){
-                throw new DuplicateIDException("Không có điểm âm!!!");
-            }
+        if (score < 0) {
+            throw new DuplicateIDException("Không có điểm âm!!!");
+        }
         this.score = score;
     }
 
@@ -41,5 +41,10 @@ public class Student extends Person {
                 "grade='" + grade + '\'' +
                 ", score=" + score +
                 '}';
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s", getID(), getName(),
+                getDateOfBirth(), isSex(), getGrade(), getScore());
     }
 }

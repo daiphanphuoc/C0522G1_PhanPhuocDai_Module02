@@ -1,5 +1,7 @@
 package exercise.student_management_file.service;
 
-public interface ITeacherService extends IPersonService {
+import exercise.student_management_file.model.Teacher;
+
+public interface ITeacherService<E> extends IPersonService {
 
 }

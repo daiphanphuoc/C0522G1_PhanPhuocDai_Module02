@@ -33,4 +33,20 @@ public class UtilInput {
         return d;
 
     }
+
+    public static int getInt(String target) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(target);
+        int n;
+        while (true) {
+            try {
+                n = Integer.parseInt(sc.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return n;
+
+    }
 }
