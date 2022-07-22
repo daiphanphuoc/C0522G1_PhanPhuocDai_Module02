@@ -3,7 +3,7 @@ package ss15_debug_exception.exercise.trigangle.service.impl;
 import ss15_debug_exception.exercise.trigangle._exception.IllegalTriangleException;
 import ss15_debug_exception.exercise.trigangle.model.Triangle;
 import ss15_debug_exception.exercise.trigangle.service.IService;
-import ss15_debug_exception.exercise.trigangle.until.Until;
+import ss15_debug_exception.exercise.trigangle.util.Util;
 
 import java.util.Scanner;
 
@@ -12,17 +12,16 @@ public class TriangleService implements IService<Triangle> {
 
     @Override
     public Triangle create() throws IllegalTriangleException {
-
         double a;
         double b;
         double c;
 
         while (true) {
-            a = Until.getDouble("Nhập vào cạnh a: ");
+            a = Util.getDouble("Nhập vào cạnh a: ");
 
-            b = Until.getDouble("Nhập vào cạnh b: ");
+            b = Util.getDouble("Nhập vào cạnh b: ");
 
-            c = Until.getDouble("Nhập vào cạnh c: ");
+            c = Util.getDouble("Nhập vào cạnh c: ");
 
             if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) {
                 throw new IllegalTriangleException("Không phải 3 cạnh của tam giác, nhập lại.");

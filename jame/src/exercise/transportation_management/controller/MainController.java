@@ -1,8 +1,5 @@
 package exercise.transportation_management.controller;
 
-import exercise.student_management.controller.DeleteController;
-import exercise.student_management.controller.DisplayController;
-import exercise.student_management.controller.NewController;
 import exercise.transportation_management.model.Transport;
 import exercise.transportation_management.service.impl.TransportServiceImpl;
 
