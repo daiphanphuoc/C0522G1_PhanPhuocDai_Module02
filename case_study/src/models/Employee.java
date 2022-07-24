@@ -1,5 +1,7 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -66,7 +68,11 @@ public class Employee extends Person {
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getIDCitizen(), getBirthday(),
+        Date date = getBirthday();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString  = df.format(date);
+
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getIDCitizen(), dateString,
                 isSex(), getPhone(), getEmail(), getIDStaff(), getDegree(), getPosition(), getSalary());
     }
 

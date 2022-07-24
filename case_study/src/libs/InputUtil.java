@@ -10,15 +10,13 @@ public class InputUtil {
     public static String getString(String target) {
         Scanner sc = new Scanner(System.in);
         System.out.print(target);
-        String str = sc.nextLine();
-        return str;
+        return sc.nextLine();
     }
 
     public static boolean getBoolean(String target) {
         Scanner sc = new Scanner(System.in);
         System.out.print(target);
-        boolean b = Boolean.parseBoolean(sc.nextLine());
-        return b;
+        return Boolean.parseBoolean(sc.nextLine());
     }
 
     public static double getDouble(String target) {
@@ -64,7 +62,7 @@ public class InputUtil {
                 temp = sc.nextLine();
                 date=df.parse(temp);
                 break;
-            } catch (NumberFormatException | ParseException e) {
+            } catch ( ParseException e) {
                 System.out.println(e.getMessage());
             }
         }

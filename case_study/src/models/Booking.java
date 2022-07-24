@@ -1,5 +1,7 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,7 +27,10 @@ public class Booking {
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s", getIDBooking(), getBegin(), getEnd(),
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String dateStringBegin  = df.format(getBegin());
+        String dateStringEnd  = df.format(getEnd());
+        return String.format("%s,%s,%s,%s,%s,%s", getIDBooking(), dateStringBegin, dateStringEnd,
                 getIDCustomer(), getNameFacility(), getFacilityType());
     }
 

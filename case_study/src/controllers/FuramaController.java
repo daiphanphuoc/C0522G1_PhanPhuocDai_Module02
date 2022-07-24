@@ -1,10 +1,8 @@
 package controllers;
 
-import java.util.Scanner;
+import libs.InputUtil;
 
 public class FuramaController {
-    static Scanner sc = new Scanner(System.in);
-
 
     public static void displayMainMenu() {
 
@@ -19,17 +17,17 @@ public class FuramaController {
             System.out.println("5.\tPromotion Management");
             System.out.println("6.\tExit");
 
-            choice = sc.nextInt();
+            choice = InputUtil.getInt("Enter choose:");
 
             switch (choice) {
                 case 1:
-                    displayEmployeeManagementMenu();
+                    EmployeeController.displayEmployeeManagementMenu();
                     break;
                 case 2:
-                    displayCustomerManagementMenu();
+                    CustomerController.displayCustomerManagementMenu();
                     break;
                 case 3:
-                    displayFacilityManagementMenu();
+                    FacilityController.displayFacilityManagementMenu();
                     break;
                 case 4:
                     displayBookingManagementMenu();
@@ -43,93 +41,11 @@ public class FuramaController {
         } while (true);
     }
 
-    public static void displayEmployeeManagementMenu() {
-        int choice;
-        do {
-
-            System.out.println("Employee Management: ");
-            System.out.println("1\tDisplay list employees");
-            System.out.println("2\tAdd new employee");
-            System.out.println("3\tEdit employee");
-            System.out.println("4\tReturn main menu");
-
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1:
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    return;
 
 
-            }
-        } while (true);
 
-    }
 
-    public static void displayCustomerManagementMenu() {
-        int choice;
-        do {
 
-            System.out.println("Customer Management: ");
-            System.out.println("1\tDisplay list customers");
-            System.out.println("2\tAdd new customers");
-            System.out.println("3\tEdit customers");
-            System.out.println("4\tReturn main menu");
-
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1:
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-                    return;
-            }
-        } while (true);
-
-    }
-
-    public static void displayFacilityManagementMenu() {
-        int choice;
-        do {
-
-            System.out.println("Facility  Management: ");
-            System.out.println("1\tDisplay list facility");
-            System.out.println("2\tAdd new facility");
-            System.out.println("3\tDisplay list facility maintenance");
-            System.out.println("4\tReturn main menu");
-
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1:
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-                    return;
-            }
-        } while (true);
-
-    }
 
     public static void displayBookingManagementMenu() {
         int choice;
@@ -143,7 +59,7 @@ public class FuramaController {
             System.out.println("5.\tEdit contracts");
             System.out.println("6.\tReturn main menu");
 
-            choice = sc.nextInt();
+            choice = InputUtil.getInt("Enter choose:");
 
             switch (choice) {
                 case 1:
@@ -176,7 +92,7 @@ public class FuramaController {
             System.out.println("2.\tDisplay list customers get voucher");
             System.out.println("3.\tReturn main menu");
 
-            choice = sc.nextInt();
+            choice = InputUtil.getInt("Enter choose:");
 
             switch (choice) {
                 case 1:
@@ -193,7 +109,5 @@ public class FuramaController {
 
     }
 
-    public static void main(String[] args) {
-displayMainMenu();
-    }
+
 }

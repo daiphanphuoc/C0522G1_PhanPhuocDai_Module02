@@ -1,5 +1,7 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,7 +23,11 @@ public class Customer extends Person {
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getIDCitizen(), getBirthday(), isSex(),
+        Date date = getBirthday();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString  = df.format(date);
+
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getIDCitizen(), dateString, isSex(),
                 getPhone(), getEmail(), getIDCustomer(), getCustomerType(), getAddress());
     }
 

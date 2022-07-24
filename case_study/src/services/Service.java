@@ -3,7 +3,7 @@ package services;
 import java.util.ArrayList;
 
 public interface Service<E> {
-    void  add();
+    void add();
 
     void display();
 
@@ -11,7 +11,7 @@ public interface Service<E> {
 
     void remove(String id);
 
-    int find(String id);
+    E find(String id);
 
     ArrayList<E> search(String name);
 }

@@ -1,4 +1,4 @@
 package services;
 
-public interface CustomerService extends Service{
+public interface CustomerService<E> extends Service{
 }

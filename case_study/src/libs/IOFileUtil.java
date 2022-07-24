@@ -33,7 +33,7 @@ public class IOFileUtil {
         bufferedWriter.close();
     }
 
-    public static @NotNull List<Employee> readEmployeeFile(String path) throws ParseException {
+    public static @NotNull List<Employee> readEmployeeFile(String path) throws ParseException,NumberFormatException {
         List<Employee> employees = new ArrayList<>();
         List<String> strings = null;
         try {
@@ -46,8 +46,8 @@ public class IOFileUtil {
         for (String s : strings) {
             arr = s.split(",");
             if (arr.length == 10) {
-                DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = simpleDateFormat.parse(arr[2]);
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = df.parse(arr[2]);
                 Employee employee = new Employee(arr[0], arr[1], date, Boolean.parseBoolean(arr[3]),
                         arr[4], arr[5], arr[6], arr[7], arr[8], Double.parseDouble(arr[9]));
                 employees.add(employee);
