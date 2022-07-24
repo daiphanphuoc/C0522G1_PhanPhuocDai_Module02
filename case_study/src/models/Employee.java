@@ -2,18 +2,19 @@ package models;
 
 import java.util.Date;
 
-public class Employee extends Person{
-    final String DEGREE="";
-    final String POSITION="";
+public class Employee extends Person {
+    final String DEGREE = "";
+    final String POSITION = "";
     private String iDStaff;
     private String degree;
     private String position;
-    private double  salary;
+    private double salary;
 
     public Employee() {
     }
 
-    public Employee(String name, String iDCitizen, Date birthday, boolean sex, String phone, String email, String iDStaff, String degree, String position, double salary) {
+    public Employee(String name, String iDCitizen, Date birthday, boolean sex, String phone,
+                    String email, String iDStaff, String degree, String position, double salary) {
         super(name, iDCitizen, birthday, sex, phone, email);
         this.iDStaff = iDStaff;
         this.degree = degree;
@@ -51,5 +52,20 @@ public class Employee extends Person{
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "iDStaff='" + iDStaff + '\'' +
+                ", degree='" + degree + '\'' +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                "} " + super.toString();
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getiDCitizen(), getBirthday(),
+                isSex(), getPhone(), getEmail(), getIDStaff(), getDegree(), getPosition(), getSalary());
     }
 }

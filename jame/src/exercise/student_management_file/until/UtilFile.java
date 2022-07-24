@@ -39,10 +39,12 @@ public class UtilFile {
             e.printStackTrace();
         }
         String[] arr;
+        assert strings != null;
         for (String s : strings) {
             arr = s.split(",");
             if (arr.length == 6) {
-                Student student = new Student(arr[0], arr[1], arr[2], Boolean.parseBoolean(arr[3]), arr[4], Double.parseDouble(arr[5]));
+                Student student = new Student(arr[0], arr[1], arr[2],
+                        Boolean.parseBoolean(arr[3]), arr[4], Double.parseDouble(arr[5]));
                 students.add(student);
             }
         }
@@ -58,6 +60,7 @@ public class UtilFile {
         data.deleteCharAt(data.length() - 1);
         try {
             writeFile(path, data.toString());
+            System.out.println("Cập nhật lên file thành công.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,6 +75,7 @@ public class UtilFile {
             e.printStackTrace();
         }
         String[] arr;
+        assert strings != null;
         for (String s : strings) {
             arr = s.split(",");
             if (arr.length == 5) {
@@ -82,7 +86,7 @@ public class UtilFile {
         return teachers;
     }
 
-    public static void writeTeacherFile(String path, List<Teacher> teachers) {
+    public static void writeTeacherFile(String path, @NotNull List<Teacher> teachers) {
         StringBuilder data = new StringBuilder();
         for (Teacher teacher : teachers) {
             data.append(teacher.getInfo()).append("\n");
@@ -91,6 +95,7 @@ public class UtilFile {
         data.deleteCharAt(data.length() - 1);
         try {
             writeFile(path, data.toString());
+            System.out.println("Cập nhật vào file thành công.");
         } catch (IOException e) {
             e.printStackTrace();
         }

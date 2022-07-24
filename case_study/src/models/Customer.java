@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public class Customer extends Person{
+public class Customer extends Person {
 
     private String iDCustomer;
     private String customerType;
@@ -11,11 +11,17 @@ public class Customer extends Person{
     public Customer() {
     }
 
-    public Customer(String name, String iDCitizen, Date birthday, boolean sex, String phone, String email, String iDCustomer, String customerType, String address) {
+    public Customer(String name, String iDCitizen, Date birthday, boolean sex, String phone,
+                    String email, String iDCustomer, String customerType, String address) {
         super(name, iDCitizen, birthday, sex, phone, email);
         this.iDCustomer = iDCustomer;
         this.customerType = customerType;
         this.address = address;
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getiDCitizen(), getBirthday(), isSex(),
+                getPhone(), getEmail(), getIDCustomer(), getCustomerType(), getAddress());
     }
 
     public String getIDCustomer() {
@@ -40,5 +46,14 @@ public class Customer extends Person{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "iDCustomer='" + iDCustomer + '\'' +
+                ", customerType='" + customerType + '\'' +
+                ", address='" + address + '\'' +
+                "} " + super.toString();
     }
 }

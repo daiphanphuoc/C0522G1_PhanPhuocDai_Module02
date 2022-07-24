@@ -13,13 +13,19 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(String iDBooking, Date begin, Date end, String iDCustomer, String nameFacility, String facilityType) {
+    public Booking(String iDBooking, Date begin, Date end, String iDCustomer,
+                   String nameFacility, String facilityType) {
         this.iDBooking = iDBooking;
         this.begin = begin;
         this.end = end;
         this.iDCustomer = iDCustomer;
         this.nameFacility = nameFacility;
         this.facilityType = facilityType;
+    }
+
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s", getIDBooking(), getBegin(), getEnd(),
+                getIDCustomer(), getNameFacility(), getFacilityType());
     }
 
     public String getIDBooking() {
@@ -68,5 +74,17 @@ public class Booking {
 
     public void setFacilityType(String facilityType) {
         this.facilityType = facilityType;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "iDBooking='" + iDBooking + '\'' +
+                ", begin=" + begin +
+                ", end=" + end +
+                ", iDCustomer='" + iDCustomer + '\'' +
+                ", nameFacility='" + nameFacility + '\'' +
+                ", facilityType='" + facilityType + '\'' +
+                '}';
     }
 }

@@ -5,13 +5,10 @@ import exercise.student_management_file.service.impl.StudentService;
 import exercise.student_management_file.until.UtilInput;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class StudentController {
     public void menuStudent() {
         StudentService studentService = new StudentService();
-
-        Scanner sc = new Scanner(System.in);
         int choose;
         do {
             System.out.println("Menu quản lý sinh viên:\n" +
@@ -39,9 +36,9 @@ public class StudentController {
                 case 3: {
                     String id = UtilInput.getString("Nhập vào mã sinh viên cần tìm:");
                     Student student = studentService.find(id);
-                    if(student!=null){
+                    if (student != null) {
                         System.out.println(student);
-                    }else {
+                    } else {
                         System.out.println("Không tìm thấy");
                     }
                     break;

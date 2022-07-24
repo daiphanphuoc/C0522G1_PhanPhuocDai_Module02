@@ -1,20 +1,15 @@
 package exercise.student_management_file.controller;
 
-import exercise.student_management_file.model.Student;
 import exercise.student_management_file.model.Teacher;
-import exercise.student_management_file.service.impl.DataService;
-import exercise.student_management_file.service.impl.StudentService;
 import exercise.student_management_file.service.impl.TeacherService;
 import exercise.student_management_file.until.UtilInput;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TeacherController {
     public void menuTeacher() {
         TeacherService teacherService = new TeacherService();
 
-        Scanner sc = new Scanner(System.in);
         int choose;
         do {
             System.out.println("Menu quản lý giảng viên:\n" +
@@ -42,9 +37,9 @@ public class TeacherController {
                 case 3: {
                     String id = UtilInput.getString("Nhập vào mã giảng viên cần tìm:");
                     Teacher teacher = teacherService.find(id);
-                    if(teacher!=null){
+                    if (teacher != null) {
                         System.out.println(teacher);
-                    }else {
+                    } else {
                         System.out.println("Không tìm thấy");
                     }
                     break;
@@ -61,7 +56,6 @@ public class TeacherController {
                         System.out.println("Không tìm thấy");
                     }
                     break;
-
                 }
                 case 5: {
                     teacherService.display();

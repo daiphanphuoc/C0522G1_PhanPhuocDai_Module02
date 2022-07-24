@@ -8,11 +8,15 @@ public class Villa extends House{
     public Villa() {
     }
 
-    public Villa(String nameFacility, String leasedArea, double rentalCosts, int maxPerson, String rentalType, String room, int floor, double areaPool) {
+    public Villa(String nameFacility, String leasedArea, double rentalCosts,
+                 int maxPerson, String rentalType, String room, int floor, double areaPool) {
         super(nameFacility, leasedArea, rentalCosts, maxPerson, rentalType, room, floor);
         this.areaPool = areaPool;
     }
-
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s", getNameFacility(), getLeasedArea(),
+                getRentalCosts(), getMaxPerson(), getRentalType(), getRoom(), getFloor(),areaPool);
+    }
     public double getAreaPool() {
         return areaPool;
     }
@@ -21,5 +25,10 @@ public class Villa extends House{
         this.areaPool = areaPool;
     }
 
-
+    @Override
+    public String toString() {
+        return "Villa{" +
+                "areaPool=" + areaPool +
+                "} " + super.toString();
+    }
 }

@@ -9,7 +9,7 @@ import exercise.student_management_file.until.UtilInput;
 
 import java.util.ArrayList;
 
-public class StudentService implements IStudentService {
+public class StudentService implements IStudentService<Student> {
 
 
     public Student createStudent() {
@@ -30,11 +30,11 @@ public class StudentService implements IStudentService {
 
     @Override
     public void add() {
-        try {
-            DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
 
-            Student student;
-            while (true) {
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        Student student;
+        while (true) {
+            try {
                 student = createStudent();
                 for (Student item : DataService.studentList) {
                     if (item.getID().equals(student.getID())) {
@@ -43,78 +43,112 @@ public class StudentService implements IStudentService {
                 }
 
                 DataService.studentList.add(student);
-                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT,DataService.studentList);
+                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
+                DataService.studentList.clear();
                 break;
+            } catch (DuplicateIDException e) {
+                e.printStackTrace();
             }
-        } catch (DuplicateIDException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
-
     }
+
 
     @Override
     public void display() {
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         for (Student student : DataService.studentList) {
             System.out.println(student);
         }
+        DataService.studentList.clear();
     }
 
     @Override
     public void delete(String id) {
-        Student student=find(id);
-        if(student!=null){
-            DataService.studentList.remove(student);
-            UtilFile.writeStudentFile(UtilFile.PATH_STUDENT,DataService.studentList);
+        Student student = find(id);
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        if (student != null) {
+            if (UtilInput.getBoolean("Bạn chắc chắn muốn xóa.true/false")) {
+                DataService.studentList.remove(student);
+                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
+                System.out.println("Xóa thành công.");
+                DataService.studentList.clear();
+            }
+        } else {
+            System.out.println("Không tìm thấy.");
         }
 
     }
 
     public Student find(String id) {
-        DataService.studentList=UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         for (Student student : DataService.studentList) {
             if (student.getID().equals(id)) {
+                DataService.studentList.clear();
                 return student;
             }
         }
+        DataService.studentList.clear();
         return null;
     }
 
     public ArrayList<Student> search(String name) {
-        DataService.studentList=UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         ArrayList<Student> students = new ArrayList<>();
         for (Student student : DataService.studentList) {
             if (UtilCompare.approximateComparison(student.getName(), name)) {
                 students.add(student);
             }
         }
-
+        DataService.studentList.clear();
         return students;
     }
 
     @Override
     public void insertionSort() {
-        DataService.studentList=UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         for (int i = 1; i < DataService.studentList.size(); i++) {
-            Student key =  DataService.studentList.get(i);
+            Student key = DataService.studentList.get(i);
             int j = i;
             for (; j > 0; j--) {
-
-                if (UtilCompare.compareString(key.getName(), ( DataService.studentList.get(j - 1)).getName()) == -1) {
+                int lessName = UtilCompare.compareString(key.getName(), (DataService.studentList.get(j - 1)).getName());
+                if (lessName == -1) {
                     DataService.studentList.set(j, DataService.studentList.get(j - 1));
+                } else if (lessName == 0) {
+                    int lessId = UtilCompare.compareString(key.getID(), (DataService.studentList.get(j - 1)).getID());
+                    if (lessId == -1) {
+                        DataService.studentList.set(j, DataService.studentList.get(j - 1));
+                    }
                 } else {
                     break;
                 }
             }
             DataService.studentList.set(j, key);
         }
-        UtilFile.writeStudentFile(UtilFile.PATH_STUDENT,DataService.studentList);
+        UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
+
+        DataService.studentList.clear();
     }
 
     @Override
-    public void update(String string) {
+    public void update(String id) {
+        Student student = find(id);
+        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        if (student != null) {
+            Student temp = createStudent();
+            while (true) {
+                if (id.equals(temp.getID())) {
+                    int i = DataService.studentList.indexOf(student);
+                    DataService.studentList.set(i, temp);
+                    UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
+                    DataService.studentList.clear();
+                    break;
+                } else {
+                    System.err.println("Bạn không được thay đổi id của sinh viên");
+                }
+            }
+        } else {
+            System.out.println("Không có sinh viên này");
+        }
 
     }
-
-
 }

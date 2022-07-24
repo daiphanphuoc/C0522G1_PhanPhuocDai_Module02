@@ -14,9 +14,9 @@ public class UtilCompare {
         String[] arrStringOne = str1.split(" ");
         String[] arrStringTwo = str2.split(" ");
 
-        for (int i = 0; i < arrStringOne.length; i++) {
-            for (int j = 0; j < arrStringTwo.length; j++) {
-                if (arrStringOne[i].equals(arrStringTwo[j])&& arrStringOne[i].length()>1) {
+        for (String s : arrStringOne) {
+            for (String value : arrStringTwo) {
+                if (s.equals(value) && s.length() > 1) {
                     return true;
                 }
             }
@@ -39,15 +39,8 @@ public class UtilCompare {
             }
         }
 
-        if(str1.length()==str2.length()){
-            return 0;
-        }
+        return Integer.compare(str1.length(), str2.length());
 
-        if(str1.length()>str2.length()){
-            return 1;
-        }
-
-        return -1;
     }
 
 }
