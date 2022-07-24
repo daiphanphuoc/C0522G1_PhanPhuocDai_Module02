@@ -30,11 +30,11 @@ public abstract class Person {
         this.name = name;
     }
 
-    public String getiDCitizen() {
+    public String getIDCitizen() {
         return iDCitizen;
     }
 
-    public void setiDCitizen(String iDCitizen) {
+    public void setIDCitizen(String iDCitizen) {
         this.iDCitizen = iDCitizen;
     }
 
@@ -68,5 +68,15 @@ public abstract class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", iDCitizen='" + iDCitizen + '\'' +
+                ", birthday=" + birthday +
+                ", sex=" + sex +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'';
     }
 }

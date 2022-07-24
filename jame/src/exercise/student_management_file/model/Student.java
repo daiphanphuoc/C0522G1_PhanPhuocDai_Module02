@@ -2,6 +2,8 @@ package exercise.student_management_file.model;
 
 import exercise.student_management_file._exception.DuplicateIDException;
 
+import java.util.Objects;
+
 public class Student extends Person {
     private String grade;
     private double score;
@@ -46,5 +48,18 @@ public class Student extends Person {
     public String getInfo() {
         return String.format("%s,%s,%s,%s,%s,%s", getID(), getName(),
                 getDateOfBirth(), isSex(), getGrade(), getScore());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return getID().equals(student.getID());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getID());
     }
 }

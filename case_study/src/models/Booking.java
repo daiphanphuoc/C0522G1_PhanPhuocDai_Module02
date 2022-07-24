@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Booking {
     private String iDBooking;
@@ -86,5 +87,18 @@ public class Booking {
                 ", nameFacility='" + nameFacility + '\'' +
                 ", facilityType='" + facilityType + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return iDBooking.equals(booking.iDBooking);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iDBooking);
     }
 }

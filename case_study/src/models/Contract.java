@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Contract {
 
     private String contractNumber;
@@ -72,5 +74,18 @@ public class Contract {
                 ", totalMoney=" + totalMoney +
                 ", iDCustomer='" + iDCustomer + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contract contract = (Contract) o;
+        return contractNumber.equals(contract.contractNumber) && bookingID.equals(contract.bookingID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(contractNumber, bookingID);
     }
 }

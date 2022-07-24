@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class House extends Facility {
     private String room;
     private int floor;
@@ -7,15 +9,15 @@ public class House extends Facility {
     public House() {
     }
 
-    public House(String nameFacility, String leasedArea, double rentalCosts, int maxPerson,
-                 String rentalType, String room, int floor) {
-        super(nameFacility, leasedArea, rentalCosts, maxPerson, rentalType);
+    public House(String iDFacility, String nameFacility, String leasedArea, double rentalCosts,
+                 int maxPerson, String rentalType, String room, int floor) {
+        super(iDFacility, nameFacility, leasedArea, rentalCosts, maxPerson, rentalType);
         this.room = room;
         this.floor = floor;
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s", getNameFacility(), getLeasedArea(),
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s", getIDFacility(), getNameFacility(), getLeasedArea(),
                 getRentalCosts(), getMaxPerson(), getRentalType(), room, floor);
     }
 
@@ -37,9 +39,22 @@ public class House extends Facility {
 
     @Override
     public String toString() {
-        return "House{" +
-                "room='" + room + '\'' +
+        return "House{ " + super.toString() +
+                ", room='" + room + '\'' +
                 ", floor=" + floor +
-                "} " + super.toString();
+                "} ";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        House house = (House) o;
+        return getIDFacility().equals(house.getIDFacility());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIDFacility());
     }
 }

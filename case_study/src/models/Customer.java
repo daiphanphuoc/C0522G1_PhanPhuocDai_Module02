@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Customer extends Person {
 
@@ -20,7 +21,7 @@ public class Customer extends Person {
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getiDCitizen(), getBirthday(), isSex(),
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getIDCitizen(), getBirthday(), isSex(),
                 getPhone(), getEmail(), getIDCustomer(), getCustomerType(), getAddress());
     }
 
@@ -50,10 +51,23 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "iDCustomer='" + iDCustomer + '\'' +
+        return "Customer{" +  super.toString()+
+                ", iDCustomer='" + iDCustomer + '\'' +
                 ", customerType='" + customerType + '\'' +
                 ", address='" + address + '\'' +
-                "} " + super.toString();
+                "} ";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return iDCustomer.equals(customer.iDCustomer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iDCustomer);
     }
 }

@@ -1,17 +1,18 @@
 package models;
 
 public abstract class Facility {
-
+    private String iDFacility;
     private String nameFacility;
     private String leasedArea;
     private double rentalCosts;
     private int maxPerson;
-    private String  rentalType;
+    private String rentalType;
 
     public Facility() {
     }
 
-    public Facility(String nameFacility, String leasedArea, double rentalCosts, int maxPerson, String rentalType) {
+    public Facility(String iDFacility, String nameFacility, String leasedArea, double rentalCosts, int maxPerson, String rentalType) {
+        this.iDFacility = iDFacility;
         this.nameFacility = nameFacility;
         this.leasedArea = leasedArea;
         this.rentalCosts = rentalCosts;
@@ -57,5 +58,23 @@ public abstract class Facility {
 
     public void setRentalType(String rentalType) {
         this.rentalType = rentalType;
+    }
+
+    public String getIDFacility() {
+        return iDFacility;
+    }
+
+    public void setIDFacility(String iDFacility) {
+        this.iDFacility = iDFacility;
+    }
+
+    @Override
+    public String toString() {
+        return "iDFacility='" + iDFacility + '\'' +
+                ", nameFacility='" + nameFacility + '\'' +
+                ", leasedArea='" + leasedArea + '\'' +
+                ", rentalCosts=" + rentalCosts +
+                ", maxPerson=" + maxPerson +
+                ", rentalType='" + rentalType + '\'';
     }
 }

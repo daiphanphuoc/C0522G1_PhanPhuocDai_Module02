@@ -132,12 +132,15 @@ public class StudentService implements IStudentService<Student> {
     @Override
     public void update(String id) {
         Student student = find(id);
+        System.out.println(student);
         DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        System.out.println("2");
         if (student != null) {
             Student temp = createStudent();
             while (true) {
                 if (id.equals(temp.getID())) {
                     int i = DataService.studentList.indexOf(student);
+                    System.out.println(i);
                     DataService.studentList.set(i, temp);
                     UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
                     DataService.studentList.clear();

@@ -18,7 +18,7 @@ public class TeacherController {
                     "3.Tìm kiếm giảng viên theo id.\n" +
                     "4.Tìm kiếm giảng viên theo tên.\n" +
                     "5.Hiển thị danh sách giảng viên\n" +
-                    "6.Sữa thông tin giảng viên.\n" +
+                    "6.Thay đổi thông tin giảng viên.\n" +
                     "7.Sắp xếp danh sách.\n" +
                     "8.Trở về menu chính");
 
@@ -32,7 +32,6 @@ public class TeacherController {
                 case 2: {
                     teacherService.delete(UtilInput.getString("Nhập vào mã giảng viên cần xóa:"));
                     break;
-
                 }
                 case 3: {
                     String id = UtilInput.getString("Nhập vào mã giảng viên cần tìm:");
@@ -68,6 +67,7 @@ public class TeacherController {
                 }
                 case 7: {
                     teacherService.insertionSort();
+                    System.out.println("Đã sắp xếp thành công");
                     break;
                 }
                 case 8:

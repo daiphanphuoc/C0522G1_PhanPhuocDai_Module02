@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Employee extends Person {
     final String DEGREE = "";
@@ -56,16 +57,29 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "iDStaff='" + iDStaff + '\'' +
+        return "Employee{" + super.toString() +
+                ", iDStaff='" + iDStaff + '\'' +
                 ", degree='" + degree + '\'' +
                 ", position='" + position + '\'' +
                 ", salary=" + salary +
-                "} " + super.toString();
+                "} ";
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getiDCitizen(), getBirthday(),
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", getName(), getIDCitizen(), getBirthday(),
                 isSex(), getPhone(), getEmail(), getIDStaff(), getDegree(), getPosition(), getSalary());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return iDStaff.equals(employee.iDStaff);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iDStaff);
     }
 }

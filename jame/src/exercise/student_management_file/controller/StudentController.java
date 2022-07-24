@@ -17,7 +17,7 @@ public class StudentController {
                     "3.Tìm kiếm sinh viên theo id.\n" +
                     "4.Tìm kiếm sinh viên theo tên.\n" +
                     "5.Hiển thị danh sách sinh viên\n" +
-                    "6.Sữa thông tin sinh viên.\n" +
+                    "6.Thay đổi thông tin sinh viên.\n" +
                     "7.Sắp xếp danh sách.\n" +
                     "8.Trở về menu chính");
 
