@@ -8,11 +8,11 @@ import exercise.student_management_file.until.UtilFile;
 import exercise.student_management_file.until.UtilInput;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherService implements ITeacherService<Teacher> {
 
-    public Teacher createTeacher() {
-        String id = UtilInput.getString("Nhập vào mã:");
+    public Teacher createTeacher(String id) {
 
         String name = UtilInput.getString("Nhập vào tên:");
 
@@ -27,22 +27,20 @@ public class TeacherService implements ITeacherService<Teacher> {
 
     @Override
     public void add() {
-        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        List<Teacher> teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
 
-        Teacher teacher;
         while (true) {
 
             try {
-                teacher = createTeacher();
-
-                for (Teacher item : DataService.teacherList) {
-                    if (item.getID().equals(teacher.getID())) {
+                String id = UtilInput.getString("Nhập vào mã:");
+                for (Teacher item : teacherList) {
+                    if (item.getID().equals(id)) {
                         throw new DuplicateIDException("Trùng mã");
                     }
                 }
 
-                DataService.teacherList.add(teacher);
-                UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, DataService.teacherList);
+                teacherList.add(createTeacher(id));
+                UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, teacherList);
                 break;
 
             } catch (DuplicateIDException e) {
@@ -56,13 +54,10 @@ public class TeacherService implements ITeacherService<Teacher> {
 
     @Override
     public void display() {
-        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
-        for (Teacher teacher : DataService.teacherList) {
-
+        List<Teacher> teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        for (Teacher teacher : teacherList) {
             System.out.println(teacher);
-
         }
-
     }
 
     @Override
@@ -70,8 +65,9 @@ public class TeacherService implements ITeacherService<Teacher> {
         Teacher teacher = find(id);
         if (teacher != null) {
             if (UtilInput.getBoolean("Bạn chắc chắn muốn xóa.true/false")) {
-                DataService.teacherList.remove(teacher);
-                UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, DataService.teacherList);
+                List<Teacher> teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+                teacherList.remove(teacher);
+                UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, teacherList);
                 System.out.println("Xóa thành công!");
             }
         } else {
@@ -81,9 +77,8 @@ public class TeacherService implements ITeacherService<Teacher> {
 
     @Override
     public Teacher find(String id) {
-        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
-
-        for (Teacher teacher : DataService.teacherList) {
+        List<Teacher> teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        for (Teacher teacher : teacherList) {
             if (teacher.getID().equals(id)) {
                 return teacher;
             }
@@ -107,51 +102,40 @@ public class TeacherService implements ITeacherService<Teacher> {
 
     @Override
     public void insertionSort() {
-        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
-        for (int i = 1; i < DataService.teacherList.size(); i++) {
-            Teacher key = DataService.teacherList.get(i);
+        List<Teacher> teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        for (int i = 1; i < teacherList.size(); i++) {
+            Teacher key = teacherList.get(i);
             int j = i;
             for (; j > 0; j--) {
-                int lessName = UtilCompare.compareString(key.getName(), (DataService.teacherList.get(j - 1)).getName());
+                int lessName = UtilCompare.compareString(key.getName(), (teacherList.get(j - 1)).getName());
                 if (lessName == -1) {
-                    DataService.teacherList.set(j, DataService.teacherList.get(j - 1));
+                    teacherList.set(j, teacherList.get(j - 1));
                 } else if (lessName == 0) {
-                    int lessId = UtilCompare.compareString(key.getID(), (DataService.teacherList.get(j - 1)).getID());
+                    int lessId = UtilCompare.compareString(key.getID(), (teacherList.get(j - 1)).getID());
                     if (lessId == -1) {
-                        DataService.teacherList.set(j, DataService.teacherList.get(j - 1));
+                        teacherList.set(j, teacherList.get(j - 1));
                     }
                 } else {
                     break;
                 }
             }
-            DataService.teacherList.set(j, key);
+            teacherList.set(j, key);
         }
-        UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, DataService.teacherList);
+        UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, teacherList);
     }
 
     @Override
     public void update(String id) {
         Teacher teacher = find(id);
-        DataService.teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
+        List<Teacher> teacherList = UtilFile.readTeacherFile(UtilFile.PATH_TEACHER);
         if (teacher != null) {
-            while (true) {
-                Teacher temp = createTeacher();
-                if (temp.getID().equals(id)) {
-                    int index = DataService.teacherList.indexOf(teacher);
-                    DataService.teacherList.set(index, temp);
-                    UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, DataService.teacherList);
-                    DataService.teacherList.clear();
-                    break;
-                } else {
-                    System.out.println("Không thể thay đổi id của giảng viên," +
-                            " nhập lại thông tin cần thay đổi");
-                }
-            }
-
+            Teacher temp = createTeacher(id);
+            int index = teacherList.indexOf(teacher);
+            teacherList.set(index, temp);
+            UtilFile.writeTeacherFile(UtilFile.PATH_TEACHER, teacherList);
         } else {
             System.err.println("Không có giảng viên này");
         }
-
     }
 
 }

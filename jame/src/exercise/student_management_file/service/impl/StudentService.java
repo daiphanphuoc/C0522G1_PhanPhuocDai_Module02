@@ -8,12 +8,12 @@ import exercise.student_management_file.until.UtilFile;
 import exercise.student_management_file.until.UtilInput;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StudentService implements IStudentService<Student> {
 
 
-    public Student createStudent() {
-        String id = UtilInput.getString("Nhập vào mã:");
+    public Student createStudent(String id) {
 
         String name = UtilInput.getString("Nhập vào tên:");
 
@@ -30,21 +30,20 @@ public class StudentService implements IStudentService<Student> {
 
     @Override
     public void add() {
-
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         Student student;
         while (true) {
             try {
-                student = createStudent();
-                for (Student item : DataService.studentList) {
-                    if (item.getID().equals(student.getID())) {
+
+                String id = UtilInput.getString("Nhập vào mã:");
+                for (Student item : studentList) {
+                    if (item.getID().equals(id)) {
                         throw new DuplicateIDException("Trùng mã");
                     }
                 }
-
-                DataService.studentList.add(student);
-                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
-                DataService.studentList.clear();
+                student = createStudent(id);
+                studentList.add(student);
+                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, studentList);
                 break;
             } catch (DuplicateIDException e) {
                 e.printStackTrace();
@@ -55,103 +54,87 @@ public class StudentService implements IStudentService<Student> {
 
     @Override
     public void display() {
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
-        for (Student student : DataService.studentList) {
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        for (Student student : studentList) {
             System.out.println(student);
         }
-        DataService.studentList.clear();
     }
 
     @Override
     public void delete(String id) {
         Student student = find(id);
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         if (student != null) {
             if (UtilInput.getBoolean("Bạn chắc chắn muốn xóa.true/false")) {
-                DataService.studentList.remove(student);
-                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
+                studentList.remove(student);
+                UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, studentList);
                 System.out.println("Xóa thành công.");
-                DataService.studentList.clear();
             }
         } else {
             System.out.println("Không tìm thấy.");
         }
-
     }
 
     public Student find(String id) {
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
-        for (Student student : DataService.studentList) {
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        for (Student student : studentList) {
             if (student.getID().equals(id)) {
-                DataService.studentList.clear();
                 return student;
             }
         }
-        DataService.studentList.clear();
+
         return null;
     }
 
     public ArrayList<Student> search(String name) {
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         ArrayList<Student> students = new ArrayList<>();
-        for (Student student : DataService.studentList) {
+        for (Student student : studentList) {
             if (UtilCompare.approximateComparison(student.getName(), name)) {
                 students.add(student);
             }
         }
-        DataService.studentList.clear();
+
         return students;
     }
 
     @Override
     public void insertionSort() {
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
-        for (int i = 1; i < DataService.studentList.size(); i++) {
-            Student key = DataService.studentList.get(i);
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
+        for (int i = 1; i < studentList.size(); i++) {
+            Student key = studentList.get(i);
             int j = i;
+
             for (; j > 0; j--) {
-                int lessName = UtilCompare.compareString(key.getName(), (DataService.studentList.get(j - 1)).getName());
+                int lessName = UtilCompare.compareString(key.getName(), (studentList.get(j - 1)).getName());
                 if (lessName == -1) {
-                    DataService.studentList.set(j, DataService.studentList.get(j - 1));
+                    studentList.set(j, studentList.get(j - 1));
                 } else if (lessName == 0) {
-                    int lessId = UtilCompare.compareString(key.getID(), (DataService.studentList.get(j - 1)).getID());
+                    int lessId = UtilCompare.compareString(key.getID(), (studentList.get(j - 1)).getID());
                     if (lessId == -1) {
-                        DataService.studentList.set(j, DataService.studentList.get(j - 1));
+                        studentList.set(j, studentList.get(j - 1));
                     }
                 } else {
                     break;
                 }
             }
-            DataService.studentList.set(j, key);
-        }
-        UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
 
-        DataService.studentList.clear();
+            studentList.set(j, key);
+        }
+        UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, studentList);
     }
 
     @Override
     public void update(String id) {
         Student student = find(id);
-        System.out.println(student);
-        DataService.studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
-        System.out.println("2");
+        List<Student> studentList = UtilFile.readStudentFile(UtilFile.PATH_STUDENT);
         if (student != null) {
-            Student temp = createStudent();
-            while (true) {
-                if (id.equals(temp.getID())) {
-                    int i = DataService.studentList.indexOf(student);
-                    System.out.println(i);
-                    DataService.studentList.set(i, temp);
-                    UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, DataService.studentList);
-                    DataService.studentList.clear();
-                    break;
-                } else {
-                    System.err.println("Bạn không được thay đổi id của sinh viên");
-                }
-            }
+            Student temp = createStudent(id);
+            int i = studentList.indexOf(student);
+            studentList.set(i, temp);
+            UtilFile.writeStudentFile(UtilFile.PATH_STUDENT, studentList);
         } else {
-            System.out.println("Không có sinh viên này");
+            System.err.println("Không có sinh viên này");
         }
-
     }
 }
