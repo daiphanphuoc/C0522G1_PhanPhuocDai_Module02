@@ -1,5 +1,11 @@
 package exercise.student_management_file.until;
 
+import exercise.student_management_file._exception.NameRegexException;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class UtilInput {
@@ -47,4 +53,43 @@ public class UtilInput {
         return n;
 
     }
+
+    public static Date getDate(String target) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(target);
+        Date date;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String temp;
+        while (true) {
+            try {
+                temp = sc.nextLine();
+                date = df.parse(temp);
+                break;
+            } catch (ParseException e) {
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return date;
+
+    }
+
+    public static String getNameStandard(String str) throws NameRegexException {
+        final String NAME_REGEX = "([^0-9 ]{2,6}[ ]){1,3}[^0-9 ]{1,6}";
+        /**str=str.toLowerCase().trim();
+         str=str.replaceAll("[ ]+"," ");*/
+        StringBuilder stringBuilder = new StringBuilder();
+        if (str.matches(NAME_REGEX)) {
+            String[] arrStr = str.split(" ");
+            for (String s : arrStr) {
+                stringBuilder.append(s.substring(0, 1).toUpperCase()).append(s.substring(1)).append(" ");
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        } else {
+            throw new NameRegexException("Nhập tên sai định dạng!!!");
+        }
+
+        return stringBuilder.toString();
+    }
+
 }

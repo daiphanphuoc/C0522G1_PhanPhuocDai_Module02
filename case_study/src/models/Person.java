@@ -22,6 +22,8 @@ public abstract class Person {
         this.email = email;
     }
 
+    public abstract String getInfo();
+
     public String getName() {
         return name;
     }

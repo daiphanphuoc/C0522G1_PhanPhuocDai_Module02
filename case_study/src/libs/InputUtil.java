@@ -69,4 +69,16 @@ public class InputUtil {
         return date;
 
     }
+
+    public static String getNameStandard(String  str){
+        str=str.toLowerCase().trim();
+        str=str.replaceAll("[ ]+"," ");
+        String[] arrStr=str.split(" ");
+        StringBuilder stringBuilder=new StringBuilder();
+        for (String s:arrStr){
+            stringBuilder.append(s.substring(0,1).toUpperCase()).append(s.substring(1)).append(" ");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        return stringBuilder.toString();
+    }
 }

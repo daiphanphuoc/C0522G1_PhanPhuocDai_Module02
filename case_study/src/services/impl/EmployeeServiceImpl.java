@@ -33,6 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                         throw new IDCitizenException("Trùng mã công dân");
                     }
                 }
+
                 employees.add(employee);
                 IOFileUtil.writeEmployeeFile(PATH_EMPLOYEE, employees);
                 System.out.println("Thêm mới thành công");

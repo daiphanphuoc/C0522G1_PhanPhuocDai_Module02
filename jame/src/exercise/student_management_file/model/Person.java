@@ -1,20 +1,24 @@
 package exercise.student_management_file.model;
 
+import java.util.Date;
+
 public abstract class Person {
     private String iD;
     private String name;
-    private String dateOfBirth;
+    private Date dateOfBirth;
     private boolean sex;
 
     public Person() {
     }
 
-    public Person(String iD, String name, String dateOfBirth, boolean sex) {
+    public Person(String iD, String name, Date dateOfBirth, boolean sex) {
         this.iD = iD;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.sex = sex;
     }
+
+    public abstract String getInfo();
 
     public String getID() {
         return iD;
@@ -32,11 +36,11 @@ public abstract class Person {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -53,6 +57,6 @@ public abstract class Person {
         return "iD='" + iD + '\'' +
                 ", name='" + name + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", sex=" + (sex ? "Nam" : "Nữ") ;
+                ", sex=" + (sex ? "Nam" : "Nữ");
     }
 }

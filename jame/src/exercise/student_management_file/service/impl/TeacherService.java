@@ -1,6 +1,7 @@
 package exercise.student_management_file.service.impl;
 
 import exercise.student_management_file._exception.DuplicateIDException;
+import exercise.student_management_file._exception.NameRegexException;
 import exercise.student_management_file.model.Teacher;
 import exercise.student_management_file.service.ITeacherService;
 import exercise.student_management_file.until.UtilCompare;
@@ -8,15 +9,24 @@ import exercise.student_management_file.until.UtilFile;
 import exercise.student_management_file.until.UtilInput;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TeacherService implements ITeacherService<Teacher> {
 
     public Teacher createTeacher(String id) {
 
-        String name = UtilInput.getString("Nhập vào tên:");
+        String name = "";
+        while (true) {
+            try {
+                name = UtilInput.getNameStandard(UtilInput.getString("Nhập vào tên:"));
+                break;
+            } catch (NameRegexException e) {
+                e.printStackTrace();
+            }
+        }
 
-        String day = UtilInput.getString("Nhập vào ngày sinh:");
+        Date day = UtilInput.getDate("Nhập vào ngày sinh:");
 
         boolean sex = UtilInput.getBoolean("Nhập vào giới tính:(true/false)");
 

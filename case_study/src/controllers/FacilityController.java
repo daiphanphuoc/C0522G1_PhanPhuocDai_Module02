@@ -1,9 +1,11 @@
 package controllers;
 
 import libs.InputUtil;
+import services.impl.FacilityServiceImpl;
 
 public class FacilityController {
     public static void displayFacilityManagementMenu() {
+        FacilityServiceImpl facilityService = new FacilityServiceImpl();
         int choice;
         do {
 
@@ -17,13 +19,13 @@ public class FacilityController {
 
             switch (choice) {
                 case 1:
-
+                    facilityService.display();
                     break;
                 case 2:
-                    addNewFacility();
+                    facilityService.add();
                     break;
                 case 3:
-
+                    facilityService.displayMaintenance();
                     break;
                 case 4:
                     return;

@@ -3,7 +3,7 @@ package models;
 public abstract class Facility {
     private String iDFacility;
     private String nameFacility;
-    private String leasedArea;
+    private double leasedArea;
     private double rentalCosts;
     private int maxPerson;
     private String rentalType;
@@ -11,7 +11,7 @@ public abstract class Facility {
     public Facility() {
     }
 
-    public Facility(String iDFacility, String nameFacility, String leasedArea, double rentalCosts, int maxPerson, String rentalType) {
+    public Facility(String iDFacility, String nameFacility, double leasedArea, double rentalCosts, int maxPerson, String rentalType) {
         this.iDFacility = iDFacility;
         this.nameFacility = nameFacility;
         this.leasedArea = leasedArea;
@@ -19,6 +19,8 @@ public abstract class Facility {
         this.maxPerson = maxPerson;
         this.rentalType = rentalType;
     }
+
+    public abstract String getInfo();
 
     public String getNameFacility() {
         return nameFacility;
@@ -28,11 +30,11 @@ public abstract class Facility {
         this.nameFacility = nameFacility;
     }
 
-    public String getLeasedArea() {
+    public double getLeasedArea() {
         return leasedArea;
     }
 
-    public void setLeasedArea(String leasedArea) {
+    public void setLeasedArea(double leasedArea) {
         this.leasedArea = leasedArea;
     }
 

@@ -1,5 +1,8 @@
 package exercise.student_management_file.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class Teacher extends Person {
@@ -8,7 +11,7 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
-    public Teacher(String iD, String name, String dateOfBirth, boolean sex, String specialize) {
+    public Teacher(String iD, String name, Date dateOfBirth, boolean sex, String specialize) {
         super(iD, name, dateOfBirth, sex);
         this.specialize = specialize;
     }
@@ -29,8 +32,10 @@ public class Teacher extends Person {
     }
 
     public String getInfo() {
+        DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+        String birth=df.format(getDateOfBirth());
         return String.format("%s,%s,%s,%s,%s", getID(), getName(),
-                getDateOfBirth(), isSex(), getSpecialize());
+                birth, isSex(), getSpecialize());
     }
 
     @Override
