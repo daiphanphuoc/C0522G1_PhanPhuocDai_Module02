@@ -1,17 +1,18 @@
 package exercise.student_management_file.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class Person {
     private String iD;
     private String name;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private boolean sex;
 
     public Person() {
     }
 
-    public Person(String iD, String name, Date dateOfBirth, boolean sex) {
+    public Person(String iD, String name, LocalDate dateOfBirth, boolean sex) {
         this.iD = iD;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -36,11 +37,11 @@ public abstract class Person {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

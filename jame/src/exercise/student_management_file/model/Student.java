@@ -4,7 +4,8 @@ import exercise.student_management_file._exception.DuplicateIDException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Student extends Person {
@@ -14,7 +15,7 @@ public class Student extends Person {
     public Student() {
     }
 
-    public Student(String iD, String name, Date dateOfBirth,
+    public Student(String iD, String name, LocalDate dateOfBirth,
                    boolean sex, String grade, double score) {
         super(iD, name, dateOfBirth, sex);
         this.grade = grade;
@@ -49,8 +50,12 @@ public class Student extends Person {
     }
 
     public String getInfo() {
-        DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
-        String birth=df.format(getDateOfBirth());
+        /**
+         * kiểu Date dùng
+         * DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String birth = df.format(getDateOfBirth());*/
+        DateTimeFormatter dt =DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String birth=getDateOfBirth().format(dt);
         return String.format("%s,%s,%s,%s,%s,%s", getID(), getName(),
                 birth, isSex(), getGrade(), getScore());
     }

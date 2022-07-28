@@ -5,6 +5,9 @@ import exercise.student_management_file._exception.NameRegexException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -53,15 +56,33 @@ public class UtilInput {
         return n;
 
     }
+    public static LocalDate getTime(String target){
+        Scanner sc = new Scanner(System.in);
+        LocalDate date;
+        String temp;
+        while (true) {
+            try {
+                System.out.print(target);
+                temp = sc.nextLine();
+                date = LocalDate.parse(temp, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                break;
+            } catch ( DateTimeParseException e) {
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
 
     public static Date getDate(String target) {
         Scanner sc = new Scanner(System.in);
-        System.out.print(target);
+
         Date date;
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String temp;
         while (true) {
             try {
+                System.out.print(target);
                 temp = sc.nextLine();
                 date = df.parse(temp);
                 break;
@@ -92,4 +113,8 @@ public class UtilInput {
         return stringBuilder.toString();
     }
 
+    public static void main(String[] args) {
+        LocalDate d=getTime("Nhập vào ngày tháng theo định dạng dd/mm/yyyy");
+        System.out.println(d);
+    }
 }

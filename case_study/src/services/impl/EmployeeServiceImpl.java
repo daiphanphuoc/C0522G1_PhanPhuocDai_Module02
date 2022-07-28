@@ -1,11 +1,13 @@
 package services.impl;
 
+import _exception.DegreeException;
 import _exception.IDCitizenException;
 import _exception.IDStaffException;
-import libs.IOFileUtil;
-import libs.InputUtil;
+
+import static libs.InputUtil.*;
+
+import _exception.PositionException;
 import models.Employee;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import services.EmployeeService;
 
@@ -14,56 +16,130 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EmployeeServiceImpl implements EmployeeService<Employee> {
-    public static List<Employee> employees;
-    public static final String PATH_EMPLOYEE = "case_study/src/data/employee.csv";
+import static libs.IOPersonUtil.readEmployeeFile;
+import static libs.IOPersonUtil.writeEmployeeFile;
+import static libs.InputPersonUtil.*;
+import static libs.InputUtil.getBoolean;
+import static libs.InputUtil.getDouble;
 
+public class EmployeeServiceImpl implements EmployeeService<Employee> {
+
+    public static final String PATH_EMPLOYEE = "case_study/src/data/employee.csv";
+    private static EmployeeServiceImpl employeeService;
+
+    private EmployeeServiceImpl() {
+    }
+
+    public static synchronized EmployeeServiceImpl getInstance(){
+        if(employeeService==null){
+            employeeService=new EmployeeServiceImpl();
+        }
+        return employeeService;
+    }
 
     @Override
     public void add() {
+        List<Employee> employees = new ArrayList<>();
+        Employee employee;
+        String iDStaff;
+        String iDCitizen;
+
+        try {
+            employees = readEmployeeFile(PATH_EMPLOYEE);
+        } catch (ParseException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+
         while (true) {
             try {
-                employees = IOFileUtil.readEmployeeFile(PATH_EMPLOYEE);
-                Employee employee = createEmployee();
+                iDStaff = inputIDEmployee("Nhập vào mã số nhân viên của nhân viên:");
                 for (Employee e : employees) {
-                    if (e.getIDStaff().equals(employee.getIDStaff())) {
+                    if (e.getIDStaff().equals(iDStaff)) {
                         throw new IDStaffException("Trùng mã nhân viên");
                     }
-                    if (e.getIDCitizen().equals(employee.getIDCitizen())) {
+                }
+                break;
+            } catch (IDStaffException e) {
+                e.printStackTrace();
+                System.out.print("");
+            }
+        }
+
+        while (true) {
+            try {
+                iDCitizen = inputIDCitizen("Nhập vào mã số công dân của nhân viên:");
+                for (Employee e : employees) {
+                    if (e.getIDCitizen().equals(iDCitizen)) {
                         throw new IDCitizenException("Trùng mã công dân");
                     }
                 }
-
-                employees.add(employee);
-                IOFileUtil.writeEmployeeFile(PATH_EMPLOYEE, employees);
-                System.out.println("Thêm mới thành công");
-                employees.clear();
                 break;
-            } catch (ParseException | NumberFormatException | IDStaffException | IDCitizenException e) {
+            } catch (IDCitizenException e) {
                 e.printStackTrace();
+                System.out.print("");
             }
         }
+
+        employee = createEmployee(iDCitizen, iDStaff);
+        employees.add(employee);
+        writeEmployeeFile(PATH_EMPLOYEE, employees);
+        System.out.println("Thêm mới thành công");
     }
 
-    @Contract(" -> new")
-    private @NotNull Employee createEmployee() {
-        String name = InputUtil.getString("Nhập vào tên nhân viên:");
-        String iDCitizen = InputUtil.getString("Nhập vào mã số công dân của nhân viên:");
-        Date birthday = InputUtil.getDate("Nhập vào ngày sinh của nhân viên:");
-        boolean sex = InputUtil.getBoolean("Nhập vào giới tính của nhân viên:Nam-true/Nữ-false");
-        String phone = InputUtil.getString("Nhập vào mã số điện thoại của nhân viên:");
-        String email = InputUtil.getString("Nhập vào mã email của nhân viên:");
-        String iDStaff = InputUtil.getString("Nhập vào mã số nhân viên của nhân viên:");
-        String degree = InputUtil.getString("Nhập vào chuyên môn của nhân viên:");
-        String position = InputUtil.getString("Nhập vào chức vụ/ vị trí của nhân viên:");
-        double salary = InputUtil.getDouble("Nhập vào lương nhân viên của nhân viên:");
+
+    private @NotNull Employee createEmployee(String iDCitizen, String iDStaff) {
+        String name = inputNameStandard("Nhập vào tên nhân viên:");
+
+        Date birthday = inputDateOfEmployee("Nhập vào ngày sinh của nhân viên:");
+
+        boolean sex = getBoolean("Nhập vào giới tính của nhân viên:Nam-true/Nữ-false");
+
+        String phone = inputPhone("Nhập vào số điện thoại của nhân viên:");
+
+        String email = inputEmail("Nhập vào email của nhân viên:");
+
+        String degree;
+        while (true) {
+            try {
+                System.out.println(" choose :\n INTERMEDIATE   -->  Trung cấp\n" +
+                        "COLLEGE -->Cao đẳng\n" +
+                        "UNDERGRADUATE -->Đại học\n" +
+                        "GRADUATE  -->  sau đại học");
+                degree = inputDegree(getString("Nhập vào chuyên môn của nhân viên:"));
+                break;
+            } catch (DegreeException | IllegalArgumentException e) {
+                e.printStackTrace();
+                System.out.print("");
+            }
+        }
+
+        String position;
+        while (true) {
+            try {
+                System.out.println("RECEPTIONIST -->Lễ tân\n" +
+                        "WAITER --> Phục vụ\n" +
+                        "SPECIALIST -->  Chuyên viên\n" +
+                        "SUPERVISOR -->Giám sát\n" +
+                        "MANAGER --> Quản lý\n" +
+                        "DIRECTOR --> Giám đốc");
+                position = inputPosition(getString("Nhập vào chức vụ/ vị trí của nhân viên:"));
+                break;
+            } catch (PositionException | IllegalArgumentException e) {
+                e.printStackTrace();
+                System.out.print("");
+            }
+        }
+
+        double salary = getDouble("Nhập vào lương nhân viên của nhân viên:");
+
         return new Employee(name, iDCitizen, birthday, sex, phone, email, iDStaff, degree, position, salary);
     }
 
     @Override
     public void display() {
+        List<Employee> employees;
         try {
-            employees = IOFileUtil.readEmployeeFile(PATH_EMPLOYEE);
+            employees = readEmployeeFile(PATH_EMPLOYEE);
             for (Employee employee : employees) {
                 System.out.println(employee);
             }
@@ -75,18 +151,20 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
     @Override
     public void update(String id) {
+        List<Employee> employees;
         Employee employee = find(id);
         if (employee != null) {
             try {
-                employees = IOFileUtil.readEmployeeFile(PATH_EMPLOYEE);
+                employees = readEmployeeFile(PATH_EMPLOYEE);
                 int index = employees.indexOf(employee);
-                employee.setName(InputUtil.getString("Nhập vào tên nhân viên:"));
+                String iDCitizen;
                 do {
-                    employee.setIDCitizen(InputUtil.getString("Nhập vào mã số công dân của nhân viên:"));
+                    iDCitizen = inputIDCitizen("Nhập vào mã số công dân của nhân viên:");
                     try {
                         for (Employee temp : employees) {
-                            if (temp.getIDCitizen().equals(employee.getIDCitizen()) && !temp.getIDStaff().equals(employee.getIDStaff())) {
-                                throw new IDCitizenException("Đã có mã số công dân này");
+                            if (temp.getIDCitizen().equals(iDCitizen) &&
+                                    !temp.getIDStaff().equals(employee.getIDStaff())) {
+                                throw new IDCitizenException("Đã có mã số công dân này, nhập lại");
                             }
                         }
                         break;
@@ -94,15 +172,9 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                         e.printStackTrace();
                     }
                 } while (true);
-                employee.setBirthday(InputUtil.getDate("Nhập vào ngày sinh của nhân viên(dd/mm/yyyy):"));
-                employee.setSex(InputUtil.getBoolean("Nhập vào giới tính của nhân viên:Nam-true/Nữ-false"));
-                employee.setPhone(InputUtil.getString("Nhập vào mã số điện thoại của nhân viên:"));
-                employee.setEmail(InputUtil.getString("Nhập vào mã email của nhân viên:"));
-                employee.setDegree(InputUtil.getString("Nhập vào chuyên môn của nhân viên:"));
-                employee.setPosition(InputUtil.getString("Nhập vào chức vụ/ vị trí của nhân viên:"));
-                employee.setSalary(InputUtil.getDouble("Nhập vào lương nhân viên của nhân viên:"));
-                employees.set(index, employee);
-                IOFileUtil.writeEmployeeFile(PATH_EMPLOYEE, employees);
+
+                employees.set(index, createEmployee(iDCitizen, id));
+                writeEmployeeFile(PATH_EMPLOYEE, employees);
                 employees.clear();
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -113,13 +185,14 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
     @Override
     public void remove(String id) {
+        List<Employee> employees;
         try {
             Employee employee = find(id);
             if (employee != null) {
-                employees = IOFileUtil.readEmployeeFile(PATH_EMPLOYEE);
-                if (InputUtil.getBoolean("Bạn chắc chắn muốn xóa: true-->xóa")) {
+                employees = readEmployeeFile(PATH_EMPLOYEE);
+                if (getBoolean("Bạn chắc chắn muốn xóa: true-->xóa")) {
                     employees.remove(employee);
-                    IOFileUtil.writeEmployeeFile(PATH_EMPLOYEE, employees);
+                    writeEmployeeFile(PATH_EMPLOYEE, employees);
                 }
             } else {
                 System.out.println("Không có nhân viên có id=" + id);
@@ -127,16 +200,15 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
         } catch (ParseException e) {
             e.printStackTrace();
-        } finally {
-            employees.clear();
         }
 
     }
 
     @Override
     public Employee find(@NotNull String id) {
+        List<Employee> employees;
         try {
-            employees = IOFileUtil.readEmployeeFile(PATH_EMPLOYEE);
+            employees = readEmployeeFile(PATH_EMPLOYEE);
             for (Employee employee : employees) {
                 if (id.equals(employee.getIDStaff())) {
                     return employee;
@@ -144,8 +216,6 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
             }
         } catch (ParseException e) {
             e.printStackTrace();
-        } finally {
-            employees.clear();
         }
 
         return null;
@@ -153,10 +223,11 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
     @Override
     public ArrayList<Employee> search(@NotNull String name) {
+        List<Employee> employees;
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
         String[] arrName = name.toLowerCase().split(" ");
         try {
-            employees = IOFileUtil.readEmployeeFile(PATH_EMPLOYEE);
+            employees = readEmployeeFile(PATH_EMPLOYEE);
             for (Employee employee : employees) {
                 String nameItem = employee.getName().toLowerCase();
                 for (String str : arrName) {
@@ -168,9 +239,8 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
             }
         } catch (ParseException e) {
             e.printStackTrace();
-        } finally {
-            employees.clear();
         }
+
         return employeeArrayList;
     }
 }

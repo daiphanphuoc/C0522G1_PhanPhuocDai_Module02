@@ -1,11 +1,12 @@
 package controllers;
 
+import libs.InputPersonUtil;
 import libs.InputUtil;
 import services.impl.EmployeeServiceImpl;
 
 public class EmployeeController {
     public static void displayEmployeeManagementMenu() {
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+        EmployeeServiceImpl employeeService =  EmployeeServiceImpl.getInstance();
         int choice;
         do {
 
@@ -25,7 +26,8 @@ public class EmployeeController {
                     employeeService.add();
                     break;
                 case 3:
-                    employeeService.update(InputUtil.getString("Nhập vào id nhân viên cần edit"));
+                    employeeService.update(InputPersonUtil.inputIDEmployee(
+                            "Nhập vào id nhân viên cần edit"));
                     break;
                 case 4:
                     return;

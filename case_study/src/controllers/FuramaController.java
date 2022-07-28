@@ -37,6 +37,8 @@ public class FuramaController {
                     break;
                 case 6:
                     System.exit(0);
+                default:
+                    System.out.println("Lựa chọn không đúng.");
             }
         } while (true);
     }

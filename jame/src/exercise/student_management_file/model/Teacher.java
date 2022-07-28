@@ -2,6 +2,8 @@ package exercise.student_management_file.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +13,7 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
-    public Teacher(String iD, String name, Date dateOfBirth, boolean sex, String specialize) {
+    public Teacher(String iD, String name, LocalDate dateOfBirth, boolean sex, String specialize) {
         super(iD, name, dateOfBirth, sex);
         this.specialize = specialize;
     }
@@ -26,14 +28,26 @@ public class Teacher extends Person {
 
     @Override
     public String toString() {
-        return "Teacher{" +super.toString()+
+        return "Teacher{" + super.toString() +
                 ", specialize='" + specialize + '\'' +
                 '}';
     }
 
     public String getInfo() {
-        DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
-        String birth=df.format(getDateOfBirth());
+        /**
+         * dùng cho kiểu Date
+         * DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+         *String birth=df.format(getDateOfBirth());
+         *
+         * dùng cho kiểu LocalDate
+         *DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         *String birth = getDateOfBirth().format(dt);
+         *
+         */
+
+
+        DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String birth = getDateOfBirth().format(dt);
         return String.format("%s,%s,%s,%s,%s", getID(), getName(),
                 birth, isSex(), getSpecialize());
     }
@@ -43,7 +57,7 @@ public class Teacher extends Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Teacher teacher = (Teacher) o;
-        return Objects.equals(getID(),teacher.getID());
+        return Objects.equals(getID(), teacher.getID());
     }
 
     @Override

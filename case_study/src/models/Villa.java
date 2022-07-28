@@ -20,7 +20,7 @@ public class Villa extends Facility {
     }
 
     public String getInfo() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s", getIDFacility(), getNameFacility(), getLeasedArea(),
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", getIDFacility(), getNameFacility(), getLeasedArea(),
                 getRentalCosts(), getMaxPerson(), getRentalType(), getRoom(), getFloor(), areaPool);
     }
 

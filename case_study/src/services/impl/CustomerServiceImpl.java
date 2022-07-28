@@ -1,9 +1,8 @@
 package services.impl;
 
+import _exception.CustomerTypeException;
 import _exception.IDCitizenException;
 import _exception.IDCustomerException;
-import libs.IOFileUtil;
-import libs.InputUtil;
 import models.Customer;
 import org.jetbrains.annotations.NotNull;
 import services.CustomerService;
@@ -13,43 +12,88 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CustomerServiceImpl implements CustomerService<Customer> {
-    public static List<Customer> customers;
-    public static final String PATH_CUSTOMER = "case_study/src/data/customer.csv";
+import static libs.IOPersonUtil.readCustomerFile;
+import static libs.IOPersonUtil.writeCustomerFile;
+import static libs.InputPersonUtil.*;
+import static libs.InputUtil.getBoolean;
+import static libs.InputUtil.getString;
 
-    @Override
-    public void add() {
-        while (true) {
-            try {
-                customers = IOFileUtil.readCustomerFile(PATH_CUSTOMER);
-                Customer customer = createCustomer();
-                for (Customer e : customers) {
-                    if (e.getIDCustomer().equals(customer.getIDCustomer())) {
-                        throw new IDCustomerException("Trùng mã khách hàng");
-                    }
-                    if (e.getIDCitizen().equals(customer.getIDCitizen())) {
-                        throw new IDCitizenException("Trùng mã công dân");
-                    }
-                }
-                customers.add(customer);
-                IOFileUtil.writeCustomerFile(PATH_CUSTOMER, customers);
-                System.out.println("Thêm mới thành công");
-                customers.clear();
-                break;
-            } catch (ParseException | NumberFormatException | IDCitizenException | IDCustomerException e) {
-                e.printStackTrace();
-            }
+public class CustomerServiceImpl implements CustomerService<Customer> {
+
+    public static final String PATH_CUSTOMER = "case_study/src/data/customer.csv";
+    private static CustomerServiceImpl customerService;
+
+    private CustomerServiceImpl() {
+    }
+
+    public static synchronized CustomerServiceImpl getInstance() {
+        if (customerService == null) {
+        customerService=new CustomerServiceImpl();
         }
+        return customerService;
     }
 
     @Override
-    public void display() {
+    public void add() {
+        List<Customer> customers = new ArrayList<>();
+
+        String idCustomer;
+        String iDCitizen;
         try {
-            customers = IOFileUtil.readCustomerFile(PATH_CUSTOMER);
+            customers = readCustomerFile(PATH_CUSTOMER);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        while (true) {
+            try {
+                iDCitizen = inputIDCitizen("Nhập vào mã số công dân của khách hàng:");
+                for (Customer e : customers) {
+                    if (e.getIDCitizen().equals(iDCitizen)) {
+                        throw new IDCitizenException("Trùng mã công dân");
+                    }
+                }
+
+                break;
+
+            } catch (IDCitizenException e) {
+                e.printStackTrace();
+                System.out.print("");
+            }
+        }
+
+        while (true) {
+            try {
+                idCustomer = inputIDCustomer("Nhập vào mã số khách hàng:");
+                for (Customer e : customers) {
+                    if (e.getIDCustomer().equals(idCustomer)) {
+                        throw new IDCustomerException("Trùng mã khách hàng");
+                    }
+                }
+
+                break;
+            } catch (IDCustomerException e) {
+                e.printStackTrace();
+                System.out.print("");
+            }
+        }
+
+        Customer customer = createCustomer(iDCitizen, idCustomer);
+        customers.add(customer);
+        writeCustomerFile(PATH_CUSTOMER, customers);
+        System.out.println("Thêm mới thành công");
+
+    }
+
+
+    @Override
+    public void display() {
+        List<Customer> customers;
+        try {
+            customers = readCustomerFile(PATH_CUSTOMER);
             for (Customer customer : customers) {
                 System.out.println(customer);
             }
-            customers.clear();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -57,80 +101,73 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
     }
 
     @Override
-    public void update(String id) {
-        Customer customer = find(id);
+    public void update(String iDCustomer) {
+        List<Customer> customers;
+        Customer customer = find(iDCustomer);
         if (customer != null) {
             try {
-                customers = IOFileUtil.readCustomerFile(PATH_CUSTOMER);
+                customers = readCustomerFile(PATH_CUSTOMER);
                 int index = customers.indexOf(customer);
-
-                customer.setName(InputUtil.getString("Nhập vào tên khách hàng:"));
-                do {
-                    customer.setIDCitizen(InputUtil.getString("Nhập vào mã số công dân của khách hàng:"));
+                String iDCitizen;
+                while (true) {
+                    iDCitizen = getString("Nhập vào mã số công dân của khách hàng:");
                     try {
                         for (Customer temp : customers) {
-                            if (temp.getIDCitizen().equals(customer.getIDCitizen())) {
+                            if (temp.getIDCitizen().equals(iDCitizen)) {
                                 throw new IDCitizenException("Đã có mã số công dân này");
                             }
                         }
                         break;
                     } catch (IDCitizenException e) {
                         e.printStackTrace();
+                        System.out.print("");
                     }
-                } while (true);
-                customer.setBirthday(InputUtil.getDate("Nhập vào ngày sinh của khách hàng(dd/mm/yyyy):"));
-                customer.setSex(InputUtil.getBoolean("Nhập vào giới tính của khách hàng:Nam-true/Nữ-false"));
-                customer.setPhone(InputUtil.getString("Nhập vào mã số điện thoại của khách hàng:"));
-                customer.setEmail(InputUtil.getString("Nhập vào mã email của khách hàng:"));
-                customer.setCustomerType(InputUtil.getString("Nhập vào loại khách hàng:"));
-                customer.setAddress(InputUtil.getString("Nhập vào địa chỉ khách hàng:"));
+                }
 
+                customer = createCustomer(iDCitizen, iDCustomer);
                 customers.set(index, customer);
-                IOFileUtil.writeCustomerFile(PATH_CUSTOMER, customers);
+                writeCustomerFile(PATH_CUSTOMER, customers);
             } catch (ParseException e) {
                 e.printStackTrace();
-            } finally {
-                customers.clear();
+                System.out.print("");
             }
         } else {
-            System.out.println("không có khách hàng có id=" + id);
+            System.out.println("không có khách hàng có id=" + iDCustomer);
         }
     }
 
     @Override
-    public void remove(String id) {
-        Customer customer = find(id);
+    public void remove(String idCustomer) {
+        List<Customer> customers;
+        Customer customer = find(idCustomer);
         if (customer != null) {
             try {
-                customers = IOFileUtil.readCustomerFile(PATH_CUSTOMER);
-                if (InputUtil.getBoolean("Bạn chắc chắn muốn xóa, nhập true-->xóa")) {
+                customers = readCustomerFile(PATH_CUSTOMER);
+                if (getBoolean("Bạn chắc chắn muốn xóa, nhập true-->xóa")) {
                     customers.remove(customer);
-                    IOFileUtil.writeCustomerFile(PATH_CUSTOMER, customers);
+                    writeCustomerFile(PATH_CUSTOMER, customers);
                 }
 
             } catch (ParseException e) {
                 e.printStackTrace();
-            } finally {
-                customers.clear();
             }
         } else {
-            System.out.println("không có khách hàng có id=" + id);
+            System.out.println("không có khách hàng có id=" + idCustomer);
         }
     }
 
     @Override
-    public Customer find(@NotNull String id) {
+    public Customer find(@NotNull String idCustomer) {
+        List<Customer> customers;
         try {
-            customers = IOFileUtil.readCustomerFile(PATH_CUSTOMER);
+            customers = readCustomerFile(PATH_CUSTOMER);
             for (Customer customer : customers) {
-                if (id.equals(customer.getIDCustomer())) {
+                if (idCustomer.equals(customer.getIDCustomer())) {
                     return customer;
                 }
             }
         } catch (ParseException e) {
             e.printStackTrace();
-        } finally {
-            customers.clear();
         }
         return null;
     }
@@ -141,16 +178,37 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
     }
 
 
-    private @NotNull Customer createCustomer() {
-        String name = InputUtil.getString("Nhập vào tên khách hàng:");
-        String iDCitizen = InputUtil.getString("Nhập vào mã số công dân của khách hàng:");
-        Date birthday = InputUtil.getDate("Nhập vào ngày sinh của khách hàng:");
-        boolean sex = InputUtil.getBoolean("Nhập vào giới tính của khách hàng:Nam-true/Nữ-false");
-        String phone = InputUtil.getString("Nhập vào mã số điện thoại của khách hàng:");
-        String email = InputUtil.getString("Nhập vào mã email của khách hàng:");
-        String iDStaff = InputUtil.getString("Nhập vào mã số nhân viên của khách hàng:");
-        String customerType = InputUtil.getString("Nhập vào loại khách hàng:");
-        String address = InputUtil.getString("Nhập vào địa chỉ của khách hàng:");
-        return new Customer(name, iDCitizen, birthday, sex, phone, email, iDStaff, customerType, address);
+    private @NotNull Customer createCustomer(String iDCitizen, String iDCustomer) {
+        String name = inputNameStandard("Nhập vào tên khách hàng:");
+
+        Date birthday = inputDateOfCustomer("Nhập vào ngày sinh của khách hàng:");
+
+        boolean sex = getBoolean("Nhập vào giới tính của khách hàng:Nam-true/Nữ-false");
+
+        String phone = inputPhone("Nhập vào số điện thoại của khách hàng:");
+
+        String email = inputEmail("Nhập vào email của khách hàng:");
+
+        String customerType = null;
+        while (true) {
+            try {
+                System.out.println("Chọn loại khách hàng:\nDiamond: Kim cương\n" +
+                        "Platinium: Bạch kim\n" +
+                        "Gold: Vàng\n" +
+                        "Silver: Bạc\n" +
+                        "Member: Thành viên");
+                customerType = inputCustomerType(getString("Nhập vào loại khách hàng:"));
+                break;
+            } catch (CustomerTypeException | IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        String address = getString("Nhập vào địa chỉ của khách hàng:");
+
+        return new Customer(name, iDCitizen, birthday, sex, phone, email, iDCustomer, customerType, address);
     }
+
+
 }

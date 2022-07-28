@@ -21,14 +21,16 @@ public class InputUtil {
 
     public static double getDouble(String target) {
         Scanner sc = new Scanner(System.in);
-        System.out.print(target);
+
         double d;
         while (true) {
             try {
+                System.out.print(target);
                 d = Double.parseDouble(sc.nextLine());
                 break;
             } catch (NumberFormatException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
+                System.out.print("");
             }
         }
         return d;
@@ -37,48 +39,58 @@ public class InputUtil {
 
     public static int getInt(String target) {
         Scanner sc = new Scanner(System.in);
-        System.out.print(target);
+
         int n;
         while (true) {
             try {
+                System.out.print(target);
                 n = Integer.parseInt(sc.nextLine());
                 break;
             } catch (NumberFormatException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
+                System.out.print("");
             }
         }
         return n;
 
     }
 
-    public static Date getDate(String target){
+    public static Date getDate(String target) {
         Scanner sc = new Scanner(System.in);
         System.out.print(target);
         Date date;
-        DateFormat df=new  SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String temp;
         while (true) {
             try {
                 temp = sc.nextLine();
-                date=df.parse(temp);
+                date = df.parse(temp);
                 break;
-            } catch ( ParseException e) {
-                System.out.println(e.getMessage());
-            }
+            } catch (ParseException e) {
+                e.printStackTrace();
+                System.out.print("");            }
         }
         return date;
 
     }
 
-    public static String getNameStandard(String  str){
-        str=str.toLowerCase().trim();
-        str=str.replaceAll("[ ]+"," ");
-        String[] arrStr=str.split(" ");
-        StringBuilder stringBuilder=new StringBuilder();
-        for (String s:arrStr){
-            stringBuilder.append(s.substring(0,1).toUpperCase()).append(s.substring(1)).append(" ");
+
+   /*
+    public static String getNameStandard(String str) {
+        str = str.toLowerCase().trim();
+        str = str.replaceAll("[ ]+", " ");
+        String[] arrStr = str.split(" ");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        if (arrStr.length > 1) {
+            for (String s : arrStr) {
+                stringBuilder.append(s.substring(0, 1).toUpperCase()).append(s.substring(1)).append(" ");
+            }
+
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
-        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+
         return stringBuilder.toString();
     }
+*/
 }

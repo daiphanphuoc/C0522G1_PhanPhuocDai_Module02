@@ -1,11 +1,12 @@
 package controllers;
 
+import libs.InputPersonUtil;
 import libs.InputUtil;
 import services.impl.CustomerServiceImpl;
 
 public class CustomerController {
     public static void displayCustomerManagementMenu() {
-        CustomerServiceImpl customerService = new CustomerServiceImpl();
+        CustomerServiceImpl customerService = CustomerServiceImpl.getInstance();
 
         int choice;
         do {
@@ -26,7 +27,7 @@ public class CustomerController {
                     customerService.add();
                     break;
                 case 3:
-                    customerService.update(InputUtil.getString(
+                    customerService.update(InputPersonUtil.inputIDCustomer(
                             "Nhập vào mã khách hàng muốn thay đồi thông tin:"));
                     break;
                 case 4:

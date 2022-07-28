@@ -2,25 +2,36 @@ package services.impl;
 
 
 import _exception.IDFacilityException;
-import libs.InputUtil;
 import models.Facility;
 import models.House;
 import models.Room;
 import models.Villa;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import regex.IDFacilityRegex;
 import services.FacilityService;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import static libs.IOFileUtil.readFacilityFile;
-import static libs.IOFileUtil.writeFacilityFile;
-import static libs.InputUtil.*;
+import static libs.IOFacilityUtil.readFacilityFile;
+import static libs.IOFacilityUtil.writeFacilityFile;
+import static libs.InputFacilityUtil.*;
+import static libs.InputUtil.getBoolean;
+import static libs.InputUtil.getString;
 
 public class FacilityServiceImpl implements FacilityService<Facility> {
-    public static final String PATH_FACILITY = "case_study/src/data/facility.csv";
-    private static final String[] TYPE_FACILITY = {"", "Vila", "House", "Room"};
+    private static final String PATH_FACILITY = "case_study/src/data/facility.csv";
+    private static FacilityServiceImpl facilityService;
+
+    private FacilityServiceImpl() {
+    }
+
+    public static synchronized FacilityServiceImpl getInstance(){
+        if (facilityService ==null){
+            facilityService=new FacilityServiceImpl();
+        }
+        return facilityService;
+    }
 
     @Override
     public void add() {
@@ -29,11 +40,15 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         while (true) {
             try {
                 id = getString("Mời bạn nhập vào id dịch vụ:");
+                if (!(new IDFacilityRegex().validate(id))) {
+                    throw new IDFacilityException("ID Facility không đúng định dạng.");
+                }
                 for (Facility facility : facilities.keySet()) {
                     if (facility.getIDFacility().equals(id)) {
                         throw new IDFacilityException("Trùng mã dịch vụ");
                     }
                 }
+
                 facilities.put(createFacility(id), 0);
                 writeFacilityFile(PATH_FACILITY, facilities);
                 break;
@@ -45,75 +60,81 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         // Facility facility = createFacility();
     }
 
-    private Facility createFacility(String iDFacility) {
-        int choose;
-        do {
-            /*System.out.println("Mời bạn chọn loại dịch vụ muốn thêm:");
-            System.out.println("Nhập 1: Vila");
-            System.out.println("Nhập 2: House");
-            System.out.println("Nhập 3: Room");
-            choose = getInt("Mời bạn chọn:");*/
-            System.out.println(" Add new Facility Management: ");
-            System.out.println("1\tAdd new Villa");
-            System.out.println("2\tAdd new House");
-            System.out.println("3\tAdd New Room");
-            //System.out.println("4\tReturn main menu");
 
-            choose = getInt("Enter choose:");
-            if (choose < 1 || choose > 3) {
-                System.err.println("Nhập sai, yêu cầu nhập lại.");
-            }
-        } while (choose < 1 || choose > 3);
+    private Facility createFacility(@NotNull String iDFacility) {
+        String choose = iDFacility.substring(0, 4);
         Facility facility;
-
         switch (choose) {
-            case 1:
+            case "SVVL":
+                System.out.println("Nhập thông tin dịch vụ Villa:");
                 facility = createVilla(iDFacility);
                 return facility;
-            case 2:
+            case "SVHO":
+                System.out.println("Nhập thông tin dịch vụ House:");
                 facility = createHouse(iDFacility);
                 return facility;
             default:
+                System.out.println("Nhập thông tin dịch vụ Room:");
                 facility = createRoom(iDFacility);
                 return facility;
         }
     }
 
-    @Contract(" -> new")
+
     private @NotNull House createHouse(String iDFacility) {
 
-        String nameFacility = getString("Nhập vào tên dịch vụ:");
-        double leasedArea = getDouble("Nhập vào diện tích sử dụng:");
-        double rentalCosts = getDouble("Nhập vào chi phí thuê:");
-        int maxPerson = getInt("Nhập vào số lượng người tối đa:");
-        String rentalType = getString("Nhập vào kiểu thuê:");
-        String room = getString("Nhập vào tiêu chuẩn phòng:");
-        int floor = getInt("Nhập vào số tầng:");
+        String nameFacility = inputString("Nhập vào tên dịch vụ:");
+
+        double leasedArea = inputArea("Nhập vào diện tích sử dụng:");
+
+        double rentalCosts = inputRentalCosts("Nhập vào chi phí thuê:");
+
+        int maxPerson = inputMaxPerson("Nhập vào số lượng người tối đa:");
+
+        String rentalType = inputString("Nhập vào kiểu thuê:");
+
+        String room = inputString("Nhập vào tiêu chuẩn phòng:");
+
+        int floor = inputFloor("Nhập vào số tầng:");
 
         return new House(iDFacility, nameFacility, leasedArea, rentalCosts, maxPerson, rentalType, room, floor);
     }
 
     private @NotNull Villa createVilla(String iDFacility) {
 
-        String nameFacility = getString("Nhập vào tên dịch vụ:");
-        double leasedArea = getDouble("Nhập vào diện tích sử dụng:");
-        double rentalCosts = getDouble("Nhập vào chi phí thuê:");
-        int maxPerson = getInt("Nhập vào số lượng người tối đa:");
-        String rentalType = getString("Nhập vào kiểu thuê:");
-        String room = getString("Nhập vào tiêu chuẩn phòng:");
-        int floor = getInt("Nhập vào số tầng:");
-        double areaPool = getDouble("Nhập vào diện tích hồ bơi:");
+        String nameFacility = inputString("Nhập vào tên dịch vụ:");
+
+        double leasedArea = inputArea("Nhập vào diện tích sử dụng:");
+
+        double rentalCosts = inputRentalCosts("Nhập vào chi phí thuê:");
+
+        int maxPerson = inputMaxPerson("Nhập vào số lượng người tối đa:");
+
+        String rentalType = inputString("Nhập vào kiểu thuê:");
+
+        String room = inputString("Nhập vào tiêu chuẩn phòng:");
+
+        int floor = inputFloor("Nhập vào số tầng:");
+
+        double areaPool = inputArea("Nhập vào diện tích hồ bơi:");
+
         return new Villa(iDFacility, nameFacility, leasedArea, rentalCosts, maxPerson, rentalType, room, floor, areaPool);
     }
 
-    @Contract(" -> new")
+
     private @NotNull Room createRoom(String iDFacility) {
-        String nameFacility = getString("Nhập vào tên dịch vụ:");
-        double leasedArea = getDouble("Nhập vào diện tích sử dụng:");
-        double rentalCosts = getDouble("Nhập vào chi phí thuê:");
-        int maxPerson = getInt("Nhập vào số lượng người tối đa:");
-        String rentalType = getString("Nhập vào kiểu thuê:");
+        String nameFacility = inputString("Nhập vào tên dịch vụ:");
+
+        double leasedArea = inputArea("Nhập vào diện tích sử dụng:");
+
+        double rentalCosts = inputRentalCosts("Nhập vào chi phí thuê:");
+
+        int maxPerson = inputMaxPerson("Nhập vào số lượng người tối đa:");
+
+        String rentalType = inputString("Nhập vào kiểu thuê:");
+
         String free = getString("Nhập vào dịch vụ miễn phí đi kèm:");
+
         return new Room(iDFacility, nameFacility, leasedArea, rentalCosts, maxPerson, rentalType, free);
     }
 
@@ -134,44 +155,38 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     }
 
     @Override
-    public void update(String id) {
-        Facility facility = find(getString(id));
+    public void update(String iDFacility) {
+        Facility facility = find(getString(iDFacility));
         LinkedHashMap<Facility, Integer> facilities = readFacilityFile(PATH_FACILITY);
         if (facility != null) {
-            if (facility instanceof Villa) {
-                facility = createVilla(id);
-            } else if (facility instanceof House) {
-                facility = createHouse(id);
-            } else {
-                facility = createRoom(id);
-            }
+            facility=createFacility(iDFacility);
             facilities.put(facility, 0);
             writeFacilityFile(PATH_FACILITY, facilities);
             System.out.println("Cập nhật thông tin thành công");
         } else {
-            System.err.println("không tồn tại dịch vụ nào có id = " + id);
+            System.err.println("không tồn tại dịch vụ nào có id = " + iDFacility);
         }
 
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(String iDFacility) {
         LinkedHashMap<Facility, Integer> facilities = readFacilityFile(PATH_FACILITY);
-        Facility facility = find(id);
+        Facility facility = find(iDFacility);
         if (facility != null && getBoolean("Bạn chắc chắn muốn xóa--> nhập true")) {
             facilities.remove(facility);
             writeFacilityFile(PATH_FACILITY, facilities);
             System.out.println("Xóa thành công.");
         } else {
-            System.err.println("không tồn tại dịch vụ có id= " + id);
+            System.err.println("không tồn tại dịch vụ có id= " + iDFacility);
         }
     }
 
     @Override
-    public Facility find(String id) {
+    public Facility find(String iDFacility) {
         LinkedHashMap<Facility, Integer> facilities = readFacilityFile(PATH_FACILITY);
         for (Facility facility : facilities.keySet()) {
-            if (facility.getIDFacility().equals(id)) {
+            if (facility.getIDFacility().equals(iDFacility)) {
                 return facility;
             }
         }

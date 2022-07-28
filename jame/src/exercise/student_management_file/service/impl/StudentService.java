@@ -8,6 +8,7 @@ import exercise.student_management_file.until.UtilCompare;
 import exercise.student_management_file.until.UtilFile;
 import exercise.student_management_file.until.UtilInput;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ public class StudentService implements IStudentService<Student> {
             }
         }
 
-        Date day = UtilInput.getDate("Nhập vào ngày sinh:");
+        LocalDate day = UtilInput.getTime("Nhập vào ngày sinh:");
 
         boolean sex = UtilInput.getBoolean("Nhập vào giới tính:(true/false)");
 

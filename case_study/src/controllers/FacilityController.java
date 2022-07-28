@@ -5,7 +5,7 @@ import services.impl.FacilityServiceImpl;
 
 public class FacilityController {
     public static void displayFacilityManagementMenu() {
-        FacilityServiceImpl facilityService = new FacilityServiceImpl();
+        FacilityServiceImpl facilityService = FacilityServiceImpl.getInstance();
         int choice;
         do {
 
@@ -34,7 +34,7 @@ public class FacilityController {
 
     }
 
-    public static void addNewFacility() {
+    /*public static void addNewFacility() {
         int choice;
         do {
 
@@ -61,6 +61,6 @@ public class FacilityController {
             }
         } while (true);
 
-    }
+    }*/
 
 }
