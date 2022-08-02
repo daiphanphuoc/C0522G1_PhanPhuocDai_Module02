@@ -1,20 +1,19 @@
 package services.impl;
 
 
-import _exception.IDFacilityException;
-import models.Facility;
-import models.House;
-import models.Room;
-import models.Villa;
+import _exception.facility.IDFacilityException;
+import models.facility.Facility;
+import models.facility.House;
+import models.facility.Room;
+import models.facility.Villa;
 import org.jetbrains.annotations.NotNull;
-import regex.IDFacilityRegex;
 import services.FacilityService;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import static libs.IOFacilityUtil.readFacilityFile;
-import static libs.IOFacilityUtil.writeFacilityFile;
+import static libs.io_file.IOFacilityUtil.readFacilityFile;
+import static libs.io_file.IOFacilityUtil.writeFacilityFile;
 import static libs.InputFacilityUtil.*;
 import static libs.InputUtil.getBoolean;
 import static libs.InputUtil.getString;
@@ -26,9 +25,9 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     private FacilityServiceImpl() {
     }
 
-    public static synchronized FacilityServiceImpl getInstance(){
-        if (facilityService ==null){
-            facilityService=new FacilityServiceImpl();
+    public static synchronized FacilityServiceImpl getInstance() {
+        if (facilityService == null) {
+            facilityService = new FacilityServiceImpl();
         }
         return facilityService;
     }
@@ -39,10 +38,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         String id;
         while (true) {
             try {
-                id = getString("Mời bạn nhập vào id dịch vụ:");
-                if (!(new IDFacilityRegex().validate(id))) {
-                    throw new IDFacilityException("ID Facility không đúng định dạng.");
-                }
+                id = inputIDFacility("Mời bạn nhập vào id dịch vụ:");
                 for (Facility facility : facilities.keySet()) {
                     if (facility.getIDFacility().equals(id)) {
                         throw new IDFacilityException("Trùng mã dịch vụ");
@@ -59,6 +55,8 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
 
         // Facility facility = createFacility();
     }
+
+
 
 
     private Facility createFacility(@NotNull String iDFacility) {
@@ -141,9 +139,11 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     @Override
     public void display() {
         LinkedHashMap<Facility, Integer> facilities = readFacilityFile(PATH_FACILITY);
+        System.out.println("Danh sách dịch vụ:");
         for (Facility facility : facilities.keySet()) {
             System.out.println(facility);
         }
+       // writeFacilityFile(PATH_FACILITY,facilities);
     }
 
     public void displayMaintenance() {
@@ -159,7 +159,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         Facility facility = find(getString(iDFacility));
         LinkedHashMap<Facility, Integer> facilities = readFacilityFile(PATH_FACILITY);
         if (facility != null) {
-            facility=createFacility(iDFacility);
+            facility = createFacility(iDFacility);
             facilities.put(facility, 0);
             writeFacilityFile(PATH_FACILITY, facilities);
             System.out.println("Cập nhật thông tin thành công");

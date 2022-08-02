@@ -1,17 +1,19 @@
 package models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class Booking {
+public class Booking implements Comparable<Booking>{
     private String iDBooking;
     private Date begin;
     private Date end;
     private String iDCustomer;
     private String nameFacility;
-    private String facilityType;
+    private String iDFacility;
 
     public Booking() {
     }
@@ -23,15 +25,15 @@ public class Booking {
         this.end = end;
         this.iDCustomer = iDCustomer;
         this.nameFacility = nameFacility;
-        this.facilityType = facilityType;
+        this.iDFacility = facilityType;
     }
 
     public String getInfo() {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String dateStringBegin  = df.format(getBegin());
-        String dateStringEnd  = df.format(getEnd());
+        String dateStringBegin = df.format(getBegin());
+        String dateStringEnd = df.format(getEnd());
         return String.format("%s,%s,%s,%s,%s,%s", getIDBooking(), dateStringBegin, dateStringEnd,
-                getIDCustomer(), getNameFacility(), getFacilityType());
+                getIDCustomer(), getNameFacility(), getIDFacility());
     }
 
     public String getIDBooking() {
@@ -74,12 +76,12 @@ public class Booking {
         this.nameFacility = nameFacility;
     }
 
-    public String getFacilityType() {
-        return facilityType;
+    public String getIDFacility() {
+        return iDFacility;
     }
 
-    public void setFacilityType(String facilityType) {
-        this.facilityType = facilityType;
+    public void setIDFacility(String iDFacility) {
+        this.iDFacility = iDFacility;
     }
 
     @Override
@@ -90,7 +92,7 @@ public class Booking {
                 ", end=" + end +
                 ", iDCustomer='" + iDCustomer + '\'' +
                 ", nameFacility='" + nameFacility + '\'' +
-                ", facilityType='" + facilityType + '\'' +
+                ", facilityType='" + iDFacility + '\'' +
                 '}';
     }
 
@@ -105,5 +107,10 @@ public class Booking {
     @Override
     public int hashCode() {
         return Objects.hash(iDBooking);
+    }
+
+    @Override
+    public int compareTo(@NotNull Booking o) {
+        return getIDBooking().compareTo(o.getIDBooking());
     }
 }

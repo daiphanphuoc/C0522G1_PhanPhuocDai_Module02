@@ -1,6 +1,9 @@
 package libs;
 
 import _exception.*;
+import _exception.facility.DegreeException;
+import _exception.facility.PositionException;
+import _exception.person.*;
 import org.jetbrains.annotations.NotNull;
 import regex.*;
 
@@ -48,7 +51,7 @@ public class InputPersonUtil {
         while (true) {
             try {
                 birthday = getDate(target);
-                int old = (new Date()).getYear() - birthday.getYear();
+                double old = ((new Date()).getTime() - birthday.getTime())/ 31557600000L;
                 if (old < 18 || old > 60) {
                     throw new BirthdayException("Nhân viên phải đủ 18 tuổi và không quá 60 tuổi!!!");
                 }
@@ -69,7 +72,7 @@ public class InputPersonUtil {
         while (true) {
             try {
                 birthday = getDate(target);
-                int old = (new Date()).getYear() - birthday.getYear();
+                double old = ((new Date()).getTime() - birthday.getTime())/ 31557600000L;
                 if (old < 18 || old > 100) {
                     throw new BirthdayException("Khách phải đủ 18 tuổi và không quá 100 tuổi!!!");
                 }
@@ -111,7 +114,7 @@ public class InputPersonUtil {
             phone = getString(target);
             try {
                 if (!(new NumberPhoneRegex()).validate(phone)) {
-                    throw new PhoneException("Nhập số phone không đúng.");
+                    throw new PhoneException("Nhập số phone không đúng định dạng(84|0)(xxxxxxxxx).");
                 }
                 break;
             } catch (PhoneException e) {
@@ -132,7 +135,7 @@ public class InputPersonUtil {
             iDCustomer = getString(target);
             try {
                 if (!(new IDCustomerRegex()).validate(iDCustomer)) {
-                    throw new IDCustomerException("Nhập mã số khách hàng không đúng định dạng.");
+                    throw new IDCustomerException("Nhập mã số khách hàng không đúng định dạng E-xxxx.");
                 }
                 break;
             } catch (IDCustomerException e) {
@@ -152,7 +155,7 @@ public class InputPersonUtil {
             iDEmployee = getString(target);
             try {
                 if (!(new IDEmployeeRegex()).validate(iDEmployee)) {
-                    throw new IDEmployeeException("Nhập mã số nhân viên không đúng định dạng.");
+                    throw new IDEmployeeException("Nhập mã số nhân viên không đúng định dạng C-xxxx.");
                 }
                 break;
             } catch (IDEmployeeException e) {
@@ -171,8 +174,8 @@ public class InputPersonUtil {
         while (true) {
             iDCitizen = getString(target);
             try {
-                if (!(new IDEmployeeRegex()).validate(iDCitizen)) {
-                    throw new IDCitizenException("Nhập mã số công dân không đúng định dạng.");
+                if (!(new IDCitizenRegex()).validate(iDCitizen)) {
+                    throw new IDCitizenException("Nhập mã số công dân không đúng định dạng có 12 số.");
                 }
                 break;
             } catch (IDCitizenException e) {
@@ -195,7 +198,7 @@ public class InputPersonUtil {
         UNDERGRADUATE,
         GRADUATE;
 
-        public static @NotNull String getDegree(@NotNull Degree degree) throws DegreeException {
+        public static @NotNull String getDegree(@NotNull Degree degree)  {
             switch (degree) {
                 case COLLEGE:
                     return "Đại học";
@@ -206,7 +209,7 @@ public class InputPersonUtil {
                 case UNDERGRADUATE:
                     return "Cao đẳng";
                 default:
-                    throw new DegreeException("nhập trình độ không phù hợp.");
+                    return "";
             }
         }
 
@@ -218,7 +221,7 @@ public class InputPersonUtil {
      * UNDERGRADUATE -->Đại học
      * GRADUATE  -->  sau đại học
      */
-    public static @NotNull String inputDegree(String degree) throws DegreeException {
+    public static @NotNull String inputDegree(String degree) throws IllegalArgumentException {
         degree = degree.toUpperCase().trim();
         return Degree.getDegree(Degree.valueOf(degree));
     }
@@ -240,7 +243,7 @@ public class InputPersonUtil {
         MANAGER,
         DIRECTOR;
 
-        public static @NotNull String getPosition(@NotNull Position position) throws PositionException {
+        public static @NotNull String getPosition(@NotNull Position position)  {
             switch (position) {
                 case RECEPTIONIST:
                     return "Lễ tân";
@@ -255,7 +258,7 @@ public class InputPersonUtil {
                 case DIRECTOR:
                     return "Giám đốc";
                 default:
-                    throw new PositionException("Không có vị trí/ chức vụ này");
+                    return "";
             }
         }
     }
@@ -268,7 +271,7 @@ public class InputPersonUtil {
      * MANAGER --> Quản lý
      * DIRECTOR --> Giám đốc
      */
-    public static @NotNull String inputPosition(String position) throws PositionException {
+    public static @NotNull String inputPosition(String position) throws IllegalArgumentException {
         position = position.toUpperCase().trim();
         return Position.getPosition(Position.valueOf(position));
     }
@@ -286,14 +289,14 @@ public class InputPersonUtil {
         GOLD,
         SILVER,
         MEMBER;
-        public static @NotNull String getCustomerType(@NotNull CustomerType customerType) throws CustomerTypeException {
+        public static @NotNull String getCustomerType(@NotNull CustomerType customerType)  {
             switch (customerType){
                 case MEMBER:return "Thành viên";
                 case SILVER:return "Bạc";
                 case GOLD:return "Vàng";
                 case PLATINIUM:return "Bạch kim";
-                case DIAMOND:return "Kim cương";
-                default:throw new CustomerTypeException("Không tồn tại loại khách hàng này");
+                case DIAMOND: return "Kim cương";
+                default:return "";
             }
         }
     }
@@ -305,7 +308,7 @@ public class InputPersonUtil {
      * Silver: Bạc
      * Member: Thành viên
      */
-    public static @NotNull String inputCustomerType(String customerType) throws CustomerTypeException,IllegalArgumentException {
+    public static @NotNull String inputCustomerType(String customerType) throws IllegalArgumentException {
         customerType=customerType.toUpperCase().trim();
         return CustomerType.getCustomerType(CustomerType.valueOf(customerType));
     }

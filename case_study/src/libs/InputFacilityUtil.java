@@ -1,15 +1,33 @@
 package libs;
 
-import _exception.AmountPersonException;
-import _exception.AreaException;
-import _exception.NameStandardException;
-import _exception.NumberPositionException;
+import _exception.*;
+import _exception.facility.IDFacilityException;
+import _exception.person.AmountPersonException;
+import org.jetbrains.annotations.NotNull;
+import regex.IDFacilityRegex;
 import regex.NameFacilityRegex;
 
 import static libs.InputUtil.*;
 
 public class InputFacilityUtil {
-    public static String inputString(String target) {
+    public static String inputIDFacility(String target) {
+        String id;
+        while (true) {
+            try {
+                id = getString(target);
+                if (!(new IDFacilityRegex().validate(id))) {
+                    throw new IDFacilityException("ID Facility không đúng định dạng.");
+                }
+                break;
+            } catch (IDFacilityException e) {
+                e.printStackTrace();
+                System.out.print("");
+            }
+        }
+        return id;
+    }
+
+    public static @NotNull String inputString(String target) {
         StringBuilder stringBuilder = new StringBuilder();
         while (true) {
             try {

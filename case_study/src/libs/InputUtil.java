@@ -3,6 +3,7 @@ package libs;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -57,12 +58,14 @@ public class InputUtil {
 
     public static Date getDate(String target) {
         Scanner sc = new Scanner(System.in);
-        System.out.print(target);
-        Date date;
+
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+       // DateTimeFormatter.
         String temp;
+        Date date;
         while (true) {
             try {
+                System.out.print(target);
                 temp = sc.nextLine();
                 date = df.parse(temp);
                 break;

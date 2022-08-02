@@ -13,5 +13,5 @@ public interface Service<E> {
 
     E find(String id);
 
-    ArrayList<E> search(String name);
+
 }

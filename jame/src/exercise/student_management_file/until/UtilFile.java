@@ -8,6 +8,8 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,17 +50,22 @@ public class UtilFile {
             for (String s : strings) {
                 arr = s.split(",");
                 if (arr.length == 6) {
-                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    Date temp;
-                    temp = df.parse(arr[2].trim());
-                    Student student = new Student(arr[0], arr[1], temp,
+                    /*DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    Date temp;*/
+                    LocalDate.parse(arr[2].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    // temp = df.parse(arr[2].trim());
+                    Student student = new Student(arr[0], arr[1],
+                            LocalDate.parse(arr[2].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                             Boolean.parseBoolean(arr[3]), arr[4], Double.parseDouble(arr[5]));
                     students.add(student);
                 }
             }
-        } catch (ParseException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+        /*catch (ParseException e) {
+            e.printStackTrace();
+        }*/
         return students;
     }
 
@@ -93,11 +100,13 @@ public class UtilFile {
                 if (arr.length == 5) {
                     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                     Date temp = df.parse(arr[2]);
-                    Teacher teacher = new Teacher(arr[0], arr[1], temp, Boolean.parseBoolean(arr[3]), arr[4]);
+                    Teacher teacher = new Teacher(arr[0], arr[1],
+                            LocalDate.parse(arr[2].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                            , Boolean.parseBoolean(arr[3]), arr[4]);
                     teachers.add(teacher);
                 }
             }
-        } catch (ParseException e) {
+        } catch (IllegalArgumentException | ParseException e) {
             e.printStackTrace();
         }
         return teachers;

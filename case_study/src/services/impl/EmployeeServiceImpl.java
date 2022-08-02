@@ -1,13 +1,14 @@
 package services.impl;
 
-import _exception.DegreeException;
-import _exception.IDCitizenException;
-import _exception.IDStaffException;
+import _exception.facility.DegreeException;
+import _exception.person.IDCitizenException;
+import _exception.person.IDStaffException;
 
 import static libs.InputUtil.*;
 
-import _exception.PositionException;
-import models.Employee;
+import _exception.facility.PositionException;
+import models.Path;
+import models.person.Employee;
 import org.jetbrains.annotations.NotNull;
 import services.EmployeeService;
 
@@ -16,15 +17,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static libs.IOPersonUtil.readEmployeeFile;
-import static libs.IOPersonUtil.writeEmployeeFile;
+import static libs.io_file.IOPersonUtil.readEmployeeFile;
+import static libs.io_file.IOPersonUtil.writeEmployeeFile;
 import static libs.InputPersonUtil.*;
 import static libs.InputUtil.getBoolean;
 import static libs.InputUtil.getDouble;
 
 public class EmployeeServiceImpl implements EmployeeService<Employee> {
-
-    public static final String PATH_EMPLOYEE = "case_study/src/data/employee.csv";
     private static EmployeeServiceImpl employeeService;
 
     private EmployeeServiceImpl() {
@@ -45,8 +44,8 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
         String iDCitizen;
 
         try {
-            employees = readEmployeeFile(PATH_EMPLOYEE);
-        } catch (ParseException | NumberFormatException e) {
+            employees = readEmployeeFile(Path.EMPLOYEE.getPath());
+        }  catch (ParseException|NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -82,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
         employee = createEmployee(iDCitizen, iDStaff);
         employees.add(employee);
-        writeEmployeeFile(PATH_EMPLOYEE, employees);
+        writeEmployeeFile(Path.EMPLOYEE.getPath(), employees);
         System.out.println("Thêm mới thành công");
     }
 
@@ -107,9 +106,9 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                         "GRADUATE  -->  sau đại học");
                 degree = inputDegree(getString("Nhập vào chuyên môn của nhân viên:"));
                 break;
-            } catch (DegreeException | IllegalArgumentException e) {
+            } catch ( IllegalArgumentException e) {
                 e.printStackTrace();
-                System.out.print("");
+
             }
         }
 
@@ -124,9 +123,8 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                         "DIRECTOR --> Giám đốc");
                 position = inputPosition(getString("Nhập vào chức vụ/ vị trí của nhân viên:"));
                 break;
-            } catch (PositionException | IllegalArgumentException e) {
+            } catch ( IllegalArgumentException e) {
                 e.printStackTrace();
-                System.out.print("");
             }
         }
 
@@ -139,12 +137,12 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
     public void display() {
         List<Employee> employees;
         try {
-            employees = readEmployeeFile(PATH_EMPLOYEE);
+            employees = readEmployeeFile(Path.EMPLOYEE.getPath());
             for (Employee employee : employees) {
                 System.out.println(employee);
             }
             employees.clear();
-        } catch (ParseException e) {
+        } catch (ParseException|NumberFormatException e) {
             e.printStackTrace();
         }
     }
@@ -155,7 +153,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
         Employee employee = find(id);
         if (employee != null) {
             try {
-                employees = readEmployeeFile(PATH_EMPLOYEE);
+                employees = readEmployeeFile(Path.EMPLOYEE.getPath());
                 int index = employees.indexOf(employee);
                 String iDCitizen;
                 do {
@@ -174,9 +172,9 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                 } while (true);
 
                 employees.set(index, createEmployee(iDCitizen, id));
-                writeEmployeeFile(PATH_EMPLOYEE, employees);
+                writeEmployeeFile(Path.EMPLOYEE.getPath(), employees);
                 employees.clear();
-            } catch (ParseException e) {
+            } catch (ParseException|NumberFormatException e) {
                 e.printStackTrace();
             }
 
@@ -189,16 +187,16 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
         try {
             Employee employee = find(id);
             if (employee != null) {
-                employees = readEmployeeFile(PATH_EMPLOYEE);
+                employees = readEmployeeFile(Path.EMPLOYEE.getPath());
                 if (getBoolean("Bạn chắc chắn muốn xóa: true-->xóa")) {
                     employees.remove(employee);
-                    writeEmployeeFile(PATH_EMPLOYEE, employees);
+                    writeEmployeeFile(Path.EMPLOYEE.getPath(), employees);
                 }
             } else {
                 System.out.println("Không có nhân viên có id=" + id);
             }
 
-        } catch (ParseException e) {
+        } catch (ParseException|NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -208,13 +206,13 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
     public Employee find(@NotNull String id) {
         List<Employee> employees;
         try {
-            employees = readEmployeeFile(PATH_EMPLOYEE);
+            employees = readEmployeeFile(Path.EMPLOYEE.getPath());
             for (Employee employee : employees) {
                 if (id.equals(employee.getIDStaff())) {
                     return employee;
                 }
             }
-        } catch (ParseException e) {
+        } catch (ParseException|NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -227,7 +225,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
         String[] arrName = name.toLowerCase().split(" ");
         try {
-            employees = readEmployeeFile(PATH_EMPLOYEE);
+            employees = readEmployeeFile(Path.EMPLOYEE.getPath());
             for (Employee employee : employees) {
                 String nameItem = employee.getName().toLowerCase();
                 for (String str : arrName) {
@@ -237,7 +235,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                     }
                 }
             }
-        } catch (ParseException e) {
+        } catch (ParseException|NumberFormatException e) {
             e.printStackTrace();
         }
 

@@ -1,2 +1,15 @@
-SVVl-1111,Villa Pama,34.0,54.0,12,ngày,vip,40,100.0,0
-SVVL-9999,Vila đà nẵng,3000.0,3.0E7,19,Ngày đêm,Phòng vip,5,500.0,0
+SVRO-0001,Phòng đơn vip ,50.0,800000.0,2,Ngày,Giặt ủi - Vệ sinh,1
+SVRO-1001,Phòng đôi vip,80.0,950000.0,4,Ngày,Giặt ủi - Vệ sinh,2
+SVRO-2001,Phòng đơn,30.0,350000.0,2,Ngày,Nước suối - Vệ sinh,1
+SVRO-3001,Phòng đôi,45.0,500000.0,4,Ngày,Nước suối - Vệ sinh,4
+SVRO-0002,Phòng đơn,30.0,350000.0,2,Ngày,Nước suối - Vệ sinh,1
+SVVL-1111,Villa đơn lập,1200.0,1.8E7,19,Ngày,Vip,10,200.0,1
+SVVL-1112,Villa song lập,600.0,1.4E7,15,Ngày,Pro,5,200.0,2
+SVVL-1113,Villa liền kề,300.0,8000000.0,10,Ngày,Vip,3,200.0,3
+SVVL-1114,Villa liền kề,250.0,6000000.0,9,Ngày,Normal,4,200.0,5
+SVHO-1111,Căn hộ,75.0,5000000.0,6,Ngày,Vip,5,1
+SVHO-1112,Homestay,30.0,1000000.0,3,Ngày,Normal,2,1
+SVHO-1113,Motel,25.0,400000.0,2,Ngày,Normal,1,1
+SVHO-1114,Homestay,50.0,2000000.0,6,Ngày,Vip,4,1
+SVHO-1115,Motel,35.0,700000.0,4,Ngày,Vip,2,1
+SVHO-1116,Căn hộ,95.0,4500000.0,8,Ngày,Normal,5,1
