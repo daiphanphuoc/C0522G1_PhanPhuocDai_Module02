@@ -1,7 +1,9 @@
 package services.impl;
 
 import _exception.IDException;
+
 import static libs.InputUtil.*;
+
 import libs.io_file.IOBookingUtil;
 import models.Booking;
 import models.Contract;
@@ -48,9 +50,9 @@ public class ContactServiceImpl {
                     }
                 }
 
-                double first =getDouble("Nhập vào số tiền trả trước");
-                double total=getDouble("Nhập vào tổng tiền cần thanh toán:");
-                Contract temp=new Contract(idContract,booking.getIDBooking(),first,total,booking.getIDCustomer());
+                double first = getDouble("Nhập vào số tiền trả trước");
+                double total = getDouble("Nhập vào tổng tiền cần thanh toán:");
+                Contract temp = new Contract(idContract, booking.getIDBooking(), first, total, booking.getIDCustomer());
                 contracts.add(temp);
                 IOBookingUtil.writeContractFile(Path.CONTRACT.getPath(), contracts);
                 bookingQueue.poll();
@@ -65,7 +67,7 @@ public class ContactServiceImpl {
     public void display() {
         List<Contract> contracts = IOBookingUtil.readContractFile(Path.CONTRACT.getPath());
         assert contracts != null;
-        for (Contract contract:contracts){
+        for (Contract contract : contracts) {
             System.out.println(contract);
         }
     }
@@ -73,31 +75,33 @@ public class ContactServiceImpl {
     public void update(String id) {
         List<Contract> contracts = IOBookingUtil.readContractFile(Path.CONTRACT.getPath());
         assert contracts != null;
-        for (Contract contract:contracts){
-            if(contract.getContractNumber().equals(id)){
+        for (Contract contract : contracts) {
+            if (contract.getContractNumber().equals(id)) {
                 contract.setFirstMoney(getDouble("nhập vào số tiền trả trước :"));
                 contract.setTotalMoney(getDouble("nhập vào tổng  số tiền cần trả  :"));
-                contracts.set(contracts.indexOf(contract),contract);
+                contracts.set(contracts.indexOf(contract), contract);
                 IOBookingUtil.writeContractFile(Path.CONTRACT.getPath(), contracts);
                 break;
             }
         }
     }
-     public Contract find(Booking booking){
-         List<Contract> contracts = IOBookingUtil.readContractFile(Path.CONTRACT.getPath());
-         assert contracts != null;
-         for (Contract contract:contracts){
-             if(contract.getBookingID().equals(booking.getIDBooking())){
-                 return contract;
-             }
-         }
-         return null;
-     }
-    public  boolean remove(Booking booking){
-        Contract contract=find(booking);
-        if(contract!=null){
+
+    public Contract find(Booking booking) {
+        List<Contract> contracts = IOBookingUtil.readContractFile(Path.CONTRACT.getPath());
+        assert contracts != null;
+        for (Contract contract : contracts) {
+            if (contract.getBookingID().equals(booking.getIDBooking())) {
+                return contract;
+            }
+        }
+        return null;
+    }
+
+    public boolean remove(Booking booking) {
+        Contract contract = find(booking);
+        if (contract != null) {
             List<Contract> contracts = IOBookingUtil.readContractFile(Path.CONTRACT.getPath());
-            if (getBoolean("Bạn chắc chắn muốn xóa, nhấn true:")){
+            if (getBoolean("Bạn chắc chắn muốn xóa, nhấn true:")) {
                 contracts.remove(contract);
                 IOBookingUtil.writeContractFile(Path.CONTRACT.getPath(), contracts);
                 return true;

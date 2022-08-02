@@ -170,22 +170,22 @@ public class BookingServiceImpl implements BookingService<Booking> {
             e.printStackTrace();
         }
 
-        ArrayList<Booking>  arrBooking =new ArrayList<>();
-        for (Booking booking:bookings){
+        ArrayList<Booking> arrBooking = new ArrayList<>();
+        for (Booking booking : bookings) {
             arrBooking.add(booking);
         }
         Collections.sort(arrBooking, new Comparator<Booking>() {
             @Override
             public int compare(Booking o1, Booking o2) {
-                if (o1.getBegin().after(o2.getBegin())){
+                if (o1.getBegin().after(o2.getBegin())) {
                     return 1;
-                }else {
+                } else {
                     return -1;
                 }
 
             }
         });
-        for (Booking booking:arrBooking){
+        for (Booking booking : arrBooking) {
             System.out.println(booking);
         }
 
@@ -194,19 +194,19 @@ public class BookingServiceImpl implements BookingService<Booking> {
     @Override
     public void update(String id) {
         Booking booking = find(id);
-        if (booking!=null){
+        if (booking != null) {
             booking.setBegin(InputUtil.getDate("Nhập vào ngày bắt đầu mới :"));
             booking.setEnd(InputUtil.getDate("Nhập vào ngày kết thúc mới :"));
-            Set<Booking> bookings=new TreeSet<>();
+            Set<Booking> bookings = new TreeSet<>();
             try {
-                bookings=IOBookingUtil.readBookingFile(Path.BOOKING.getPath());
+                bookings = IOBookingUtil.readBookingFile(Path.BOOKING.getPath());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             bookings.add(booking);
             IOBookingUtil.writeBookingFile(Path.BOOKING.getPath(), bookings);
             System.out.println("Sửa thành công");
-        }else{
+        } else {
             System.out.println("Không tìm thấy ");
         }
 
@@ -231,8 +231,8 @@ public class BookingServiceImpl implements BookingService<Booking> {
                             IOBookingUtil.writeBookingFile(Path.BOOKING.getPath(), bookings);
                             System.out.println("Xóa thành công.");
                             LinkedHashMap<Facility, Integer> facilities = IOFacilityUtil.readFacilityFile(Path.FACILITY.getPath());
-                            Facility facility=FacilityServiceImpl.getInstance().find(booking.getIDFacility());
-                            facilities.put(facility,facilities.get(facility)-1);
+                            Facility facility = FacilityServiceImpl.getInstance().find(booking.getIDFacility());
+                            facilities.put(facility, facilities.get(facility) - 1);
                             IOFacilityUtil.writeFacilityFile(Path.FACILITY.getPath(), facilities);
                             return;
                         }

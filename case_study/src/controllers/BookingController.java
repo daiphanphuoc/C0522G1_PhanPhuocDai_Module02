@@ -7,14 +7,16 @@ import services.impl.ContactServiceImpl;
 
 public class BookingController {
     private static BookingController bookingController;
-    public static synchronized BookingController getInstance(){
-        if(bookingController==null){
-            bookingController=new BookingController();
+
+    public static synchronized BookingController getInstance() {
+        if (bookingController == null) {
+            bookingController = new BookingController();
 
         }
         return bookingController;
     }
-    public  void displayBookingManagementMenu() {
+
+    public void displayBookingManagementMenu() {
         int choice;
         do {
 
@@ -43,7 +45,7 @@ public class BookingController {
                     break;
 
                 case 5:
-                    String  id = InputBookingUtil.inputIDBooking(
+                    String id = InputBookingUtil.inputIDBooking(
                             "Nhập vào số hợp đồng cần  thay đổi thông tin hợp đồng");
                     BookingServiceImpl.getInstance().update(id);
                     break;

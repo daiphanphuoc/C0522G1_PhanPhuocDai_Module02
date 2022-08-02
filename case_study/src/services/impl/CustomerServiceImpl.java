@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
 
     public static synchronized CustomerServiceImpl getInstance() {
         if (customerService == null) {
-        customerService=new CustomerServiceImpl();
+            customerService = new CustomerServiceImpl();
         }
         return customerService;
     }
@@ -217,7 +217,7 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
                     }
                 }
             }
-        } catch (ParseException|NumberFormatException e) {
+        } catch (ParseException | NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -236,7 +236,7 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
 
         String email = inputEmail("Nhập vào email của khách hàng:");
 
-        String customerType ;
+        String customerType;
         while (true) {
             try {
                 System.out.println("Chọn loại khách hàng:\nDiamond: Kim cương\n" +

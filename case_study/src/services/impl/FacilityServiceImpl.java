@@ -57,8 +57,6 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
     }
 
 
-
-
     private Facility createFacility(@NotNull String iDFacility) {
         String choose = iDFacility.substring(0, 4);
         Facility facility;
@@ -143,7 +141,7 @@ public class FacilityServiceImpl implements FacilityService<Facility> {
         for (Facility facility : facilities.keySet()) {
             System.out.println(facility);
         }
-       // writeFacilityFile(PATH_FACILITY,facilities);
+        // writeFacilityFile(PATH_FACILITY,facilities);
     }
 
     public void displayMaintenance() {

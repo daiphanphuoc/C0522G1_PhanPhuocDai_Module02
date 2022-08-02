@@ -13,10 +13,8 @@ public class IDFacilityRegex {
     }
 
     public boolean validate(String id) {
-        Pattern pattern;
-        Matcher matcher;
-        pattern = Pattern.compile(REGEX_FACILITY);
-        matcher = pattern.matcher(id);
+        Pattern pattern = Pattern.compile(REGEX_FACILITY);
+        Matcher matcher = pattern.matcher(id);
         return matcher.matches();
     }
 

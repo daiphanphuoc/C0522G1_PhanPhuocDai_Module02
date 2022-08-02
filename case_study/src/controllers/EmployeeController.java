@@ -6,7 +6,7 @@ import services.impl.EmployeeServiceImpl;
 
 public class EmployeeController {
     public static void displayEmployeeManagementMenu() {
-        EmployeeServiceImpl employeeService =  EmployeeServiceImpl.getInstance();
+        EmployeeServiceImpl employeeService = EmployeeServiceImpl.getInstance();
         int choice;
         do {
 

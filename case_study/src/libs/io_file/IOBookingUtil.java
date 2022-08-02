@@ -35,9 +35,9 @@ public class IOBookingUtil {
         for (Booking booking : bookings) {
             data.append(booking.getInfo()).append("\n");
         }
-        data.deleteCharAt(data.length()-1);
+        data.deleteCharAt(data.length() - 1);
         try {
-            IOFileUtil.writeFile(path,data.toString());
+            IOFileUtil.writeFile(path, data.toString());
             System.out.println("Cập nhật lên file thành công.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,8 +56,8 @@ public class IOBookingUtil {
 
         for (String str : strings) {
             String[] temp = str.split(",");
-            contractList.add(new Contract(temp[0],  temp[1], Double.parseDouble(temp[2]),
-                    Double.parseDouble(temp[3]),temp[4]));
+            contractList.add(new Contract(temp[0], temp[1], Double.parseDouble(temp[2]),
+                    Double.parseDouble(temp[3]), temp[4]));
         }
         return contractList;
     }
@@ -67,9 +67,9 @@ public class IOBookingUtil {
         for (Contract contract : contracts) {
             data.append(contract.getInfo()).append("\n");
         }
-        data.deleteCharAt(data.length()-1);
+        data.deleteCharAt(data.length() - 1);
         try {
-            IOFileUtil.writeFile(path,data.toString());
+            IOFileUtil.writeFile(path, data.toString());
             System.out.println("Cập nhật lên file thành công.");
         } catch (IOException e) {
             e.printStackTrace();

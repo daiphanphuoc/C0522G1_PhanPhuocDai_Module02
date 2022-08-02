@@ -29,9 +29,9 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
     private EmployeeServiceImpl() {
     }
 
-    public static synchronized EmployeeServiceImpl getInstance(){
-        if(employeeService==null){
-            employeeService=new EmployeeServiceImpl();
+    public static synchronized EmployeeServiceImpl getInstance() {
+        if (employeeService == null) {
+            employeeService = new EmployeeServiceImpl();
         }
         return employeeService;
     }
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
 
         try {
             employees = readEmployeeFile(Path.EMPLOYEE.getPath());
-        }  catch (ParseException|NumberFormatException e) {
+        } catch (ParseException | NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -106,7 +106,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                         "GRADUATE  -->  sau đại học");
                 degree = inputDegree(getString("Nhập vào chuyên môn của nhân viên:"));
                 break;
-            } catch ( IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
 
             }
@@ -123,7 +123,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                         "DIRECTOR --> Giám đốc");
                 position = inputPosition(getString("Nhập vào chức vụ/ vị trí của nhân viên:"));
                 break;
-            } catch ( IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
@@ -142,7 +142,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                 System.out.println(employee);
             }
             employees.clear();
-        } catch (ParseException|NumberFormatException e) {
+        } catch (ParseException | NumberFormatException e) {
             e.printStackTrace();
         }
     }
@@ -174,7 +174,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                 employees.set(index, createEmployee(iDCitizen, id));
                 writeEmployeeFile(Path.EMPLOYEE.getPath(), employees);
                 employees.clear();
-            } catch (ParseException|NumberFormatException e) {
+            } catch (ParseException | NumberFormatException e) {
                 e.printStackTrace();
             }
 
@@ -196,7 +196,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                 System.out.println("Không có nhân viên có id=" + id);
             }
 
-        } catch (ParseException|NumberFormatException e) {
+        } catch (ParseException | NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -212,7 +212,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                     return employee;
                 }
             }
-        } catch (ParseException|NumberFormatException e) {
+        } catch (ParseException | NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -235,7 +235,7 @@ public class EmployeeServiceImpl implements EmployeeService<Employee> {
                     }
                 }
             }
-        } catch (ParseException|NumberFormatException e) {
+        } catch (ParseException | NumberFormatException e) {
             e.printStackTrace();
         }
 

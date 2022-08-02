@@ -15,9 +15,9 @@ public class PromotionServiceImpl {
     private PromotionServiceImpl() {
     }
 
-    public static PromotionServiceImpl getInstance(){
-        if(promotionService==null){
-            promotionService=new PromotionServiceImpl();
+    public static PromotionServiceImpl getInstance() {
+        if (promotionService == null) {
+            promotionService = new PromotionServiceImpl();
         }
         return promotionService;
     }
@@ -33,7 +33,7 @@ public class PromotionServiceImpl {
         if (!bookings.isEmpty()) {
             for (Booking booking : bookings) {
                 System.out.println(booking.getBegin().getYear());
-                if (booking.getBegin().getYear() == year-1900) {
+                if (booking.getBegin().getYear() == year - 1900) {
                     customers.add(CustomerServiceImpl.getInstance().find(booking.getIDCustomer()));
                 }
             }
@@ -66,14 +66,14 @@ public class PromotionServiceImpl {
                 }
             }
 
-            while (voucher10 > 0 && !customers.isEmpty()){
-                System.out.println(customers.pop().getName()+ "được tặng 1 voucher 10%");
+            while (voucher10 > 0 && !customers.isEmpty()) {
+                System.out.println(customers.pop().getName() + "được tặng 1 voucher 10%");
             }
-            while (voucher20 > 0 && !customers.isEmpty()){
-                System.out.println(customers.pop().getName()+ "được tặng 1 voucher 20%");
+            while (voucher20 > 0 && !customers.isEmpty()) {
+                System.out.println(customers.pop().getName() + "được tặng 1 voucher 20%");
             }
-            while (voucher50 > 0 && !customers.isEmpty()){
-                System.out.println(customers.pop().getName()+ "được tặng 1 voucher 50%");
+            while (voucher50 > 0 && !customers.isEmpty()) {
+                System.out.println(customers.pop().getName() + "được tặng 1 voucher 50%");
             }
 
         }

@@ -1,8 +1,7 @@
 package libs;
 
-import _exception.*;
-import _exception.facility.DegreeException;
-import _exception.facility.PositionException;
+import _exception.BirthdayException;
+import _exception.NameStandardException;
 import _exception.person.*;
 import org.jetbrains.annotations.NotNull;
 import regex.*;
@@ -16,6 +15,7 @@ public class InputPersonUtil {
     /**
      * Nhập tên theo chuẩn
      */
+
     public static @NotNull String inputNameStandard(String target) {
         String[] temp;
         StringBuilder stringBuilder = new StringBuilder();

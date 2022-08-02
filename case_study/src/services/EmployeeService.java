@@ -1,4 +1,4 @@
 package services;
 
-public interface EmployeeService<E> extends PersonService{
+public interface EmployeeService<E> extends PersonService<E> {
 }

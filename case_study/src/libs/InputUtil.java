@@ -60,7 +60,7 @@ public class InputUtil {
         Scanner sc = new Scanner(System.in);
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-       // DateTimeFormatter.
+        // DateTimeFormatter.
         String temp;
         Date date;
         while (true) {
@@ -71,7 +71,8 @@ public class InputUtil {
                 break;
             } catch (ParseException e) {
                 e.printStackTrace();
-                System.out.print("");            }
+                System.out.print("");
+            }
         }
         return date;
 
