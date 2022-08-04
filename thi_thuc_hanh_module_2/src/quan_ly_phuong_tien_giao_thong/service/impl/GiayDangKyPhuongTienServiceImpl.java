@@ -82,11 +82,18 @@ public class GiayDangKyPhuongTienServiceImpl implements GiayDangKyPhuongTienServ
                         }
                     }
                     if (!isPhuongTien) {
-
                         throw new Exception("không tông tại phương tiện., nhập lại.");
-
+                    }
+                    if (!giayDangKyList.isEmpty()) {
+                        for (GiayDangKy giayDangKy : giayDangKyList) {
+                            if (giayDangKy.getMaPhuongTien().equals(maPhuongTien)) {
+                                throw new MaSoDKException("Mã số phương tiện đã được đăng ký");
+                            }
+                        }
                     }
                     break;
+                } catch (MaSoDKException e1) {
+                    e1.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -120,12 +127,14 @@ public class GiayDangKyPhuongTienServiceImpl implements GiayDangKyPhuongTienServ
             if (giayDangKyList.isEmpty()) {
                 System.out.println("Không tồn tại giấy đăng ký phương tiện");
             } else {
-                for (GiayDangKy giayDangKy:giayDangKyList){
-                    System.out.print(giayDangKy+"  ");
-                    for (PhuongTienGiaoThong phuongTienGiaoThong:phuongTienGiaoThongs){
-                        if(phuongTienGiaoThong.getMaPhuongTien().equals(giayDangKy.getMaPhuongTien()))
+                for (GiayDangKy giayDangKy : giayDangKyList) {
+                    System.out.println(giayDangKy);
+                    for (PhuongTienGiaoThong phuongTienGiaoThong : phuongTienGiaoThongs) {
+                        if (phuongTienGiaoThong.getMaPhuongTien().equals(giayDangKy.getMaPhuongTien())) {
+                            //System.out.println(giayDangKy.getMaPhuongTien());
                             System.out.println(phuongTienGiaoThong);
-                        break;
+                            break;
+                        }
                     }
                 }
 
