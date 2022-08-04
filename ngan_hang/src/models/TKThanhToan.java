@@ -5,22 +5,22 @@ import java.time.format.DateTimeFormatter;
 
 public class TKThanhToan extends TaiKhoan{
 
-    String soThe;
-    double soTien;
+    private String soThe;
+    private double soTien;
 
     public TKThanhToan() {
     }
 
-    public TKThanhToan(String idTaiKhoan, String maTaiKhoan, String tenChuTaiKhoan,
+    public TKThanhToan(int soTaiKhoan, String maTaiKhoan, String tenChuTaiKhoan,
                        LocalDate ngayTaoTaiKhoan, String soThe, double soTien) {
-        super(idTaiKhoan, maTaiKhoan, tenChuTaiKhoan, ngayTaoTaiKhoan);
+        super(soTaiKhoan, maTaiKhoan, tenChuTaiKhoan, ngayTaoTaiKhoan);
         this.soThe = soThe;
         this.soTien = soTien;
     }
     @Override
     public String getInfo() {
         String temp =getNgayTaoTaiKhoan().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        return String.format("%s,%s,%s,%s,%s,%s",getIdTaiKhoan(),getMaTaiKhoan(),getTenChuTaiKhoan(),
+        return String.format("%s,%s,%s,%s,%s,%s", getSoTaiKhoan(),getMaTaiKhoan(),getTenChuTaiKhoan(),
                 temp,getSoThe(),getSoTien());
     }
     public String getSoThe() {

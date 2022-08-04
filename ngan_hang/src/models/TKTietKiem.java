@@ -12,9 +12,9 @@ public class TKTietKiem extends TaiKhoan{
     public TKTietKiem() {
     }
 
-    public TKTietKiem(String idTaiKhoan, String maTaiKhoan, String tenChuTaiKhoan, LocalDate ngayTaoTaiLhoan,
+    public TKTietKiem(int soTaiKhoan, String maTaiKhoan, String tenChuTaiKhoan, LocalDate ngayTaoTaiLhoan,
                       double soTienTietKIem, LocalDate ngayGui, double laiSuat, int kyHan) {
-        super(idTaiKhoan, maTaiKhoan, tenChuTaiKhoan, ngayTaoTaiLhoan);
+        super(soTaiKhoan, maTaiKhoan, tenChuTaiKhoan, ngayTaoTaiLhoan);
         this.soTienTietKIem = soTienTietKIem;
         this.ngayGui = ngayGui;
         this.laiSuat = laiSuat;
@@ -66,7 +66,8 @@ public class TKTietKiem extends TaiKhoan{
     @Override
     public String getInfo() {
         String temp =getNgayTaoTaiKhoan().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s",getIdTaiKhoan(),getMaTaiKhoan(),getTenChuTaiKhoan(),
+        String ngayGui=getNgayGui().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s", getSoTaiKhoan(),getMaTaiKhoan(),getTenChuTaiKhoan(),
                 temp,getSoTienTietKIem(),getNgayGui(),getLaiSuat(),getKyHan());
     }
 }

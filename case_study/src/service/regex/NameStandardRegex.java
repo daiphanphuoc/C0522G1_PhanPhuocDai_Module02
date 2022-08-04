@@ -1,6 +1,4 @@
-package regex;
-
-import _exception.NameStandardException;
+package service.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

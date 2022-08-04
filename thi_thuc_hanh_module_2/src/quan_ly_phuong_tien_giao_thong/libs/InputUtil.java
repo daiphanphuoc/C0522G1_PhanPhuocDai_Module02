@@ -1,9 +1,11 @@
-package libs;
+package quan_ly_phuong_tien_giao_thong.libs;
 
-import exception.MaTaiKhoanException;
-import exception.NameStandardException;
+
 import org.jetbrains.annotations.NotNull;
-import service.regex.MaTaiKhoanRegex;
+import quan_ly_phuong_tien_giao_thong.exception.MaSoDKException;
+import quan_ly_phuong_tien_giao_thong.exception.NameStandardException;
+import quan_ly_phuong_tien_giao_thong.service.impl.MaSoDKRegex;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -74,7 +76,8 @@ public class InputUtil {
                 break;
             } catch (ParseException e) {
                 e.printStackTrace();
-                System.out.print("");            }
+                System.out.print("");
+            }
         }
         return date;
 
@@ -90,7 +93,7 @@ public class InputUtil {
                 temp = sc.nextLine();
                 date = LocalDate.parse(temp, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 break;
-            }catch (IllegalArgumentException| DateTimeParseException e){
+            } catch (IllegalArgumentException | DateTimeParseException e) {
                 e.printStackTrace();
             }
 
@@ -99,30 +102,29 @@ public class InputUtil {
 
     }
 
-public static String nhapMaTaiKhoan(String target){
-    //final  String REGEX_TAIKHOAN = "^TK(TK|TT)\\-[\\d]{4}$";
-    String id;
-    while (true) {
-        try {
-            id = getString(target);
-            if (!(new MaTaiKhoanRegex().validate(id))) {
-                throw new MaTaiKhoanException(" Mã tài khoản không đúng định dạng '(TKTK|TKTT)-yyyy'.");
+    public static String nhapMaSoDK(String target) {
+        String id;
+        while (true) {
+            try {
+                id = getString(target);
+                if (!(new MaSoDKRegex().validate(id))) {
+                    throw new MaSoDKException(" Mã số đăng ký không đúng định dạng '[A-Z]y-yyyy'.");
+                }
+                break;
+            } catch (MaSoDKException e) {
+                e.printStackTrace();
+                System.out.print("");
             }
-            break;
-        } catch (MaTaiKhoanException e) {
-            e.printStackTrace();
-            System.out.print("");
         }
+        return id;
     }
-    return id;
-}
 
     /**
      * Nhập tên theo chuẩn
      */
 
     public static @NotNull String inputNameStandard(String target) {
-        final  String NAMEREGEX = "^([ ]*[^\\d!@#$%^&*()_+./-]{2,6}[ ]+){1,3}[^\\d!@#$%^&*()_+./-]{1,6}[ ]*$";
+        final String NAMEREGEX = "^([ ]*[^\\d!@#$%^&*()_+./-]{2,6}[ ]+){1,3}[^\\d!@#$%^&*()_+./-]{1,6}[ ]*$";
 
         String[] temp;
         StringBuilder stringBuilder = new StringBuilder();

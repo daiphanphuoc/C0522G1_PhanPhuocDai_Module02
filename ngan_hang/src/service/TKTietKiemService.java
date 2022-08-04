@@ -1,4 +1,4 @@
 package service;
 
-public interface TKTietKiemService<E> extends Service{
+public interface TKTietKiemService<E> extends Service<E>{
 }

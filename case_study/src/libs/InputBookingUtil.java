@@ -1,7 +1,7 @@
 package libs;
 
 import _exception.facility.IDBookingException;
-import regex.BookingRegex;
+import service.regex.BookingRegex;
 
 import static libs.InputUtil.*;
 

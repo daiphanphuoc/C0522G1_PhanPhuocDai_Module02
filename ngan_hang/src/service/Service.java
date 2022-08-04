@@ -1,13 +1,13 @@
 package service;
 
 public interface Service<E> {
-    void add();
+    void them();
 
-    void delete(String id);
+    void xoa(String id);
 
-    void update(String id);
+    void sua(String id);
 
-    void display();
+    void hienThi();
 
-    void find(String data);
+    void timKiem(String data);
 }

@@ -4,8 +4,8 @@ import _exception.*;
 import _exception.facility.IDFacilityException;
 import _exception.person.AmountPersonException;
 import org.jetbrains.annotations.NotNull;
-import regex.IDFacilityRegex;
-import regex.NameFacilityRegex;
+import service.regex.IDFacilityRegex;
+import service.regex.NameFacilityRegex;
 
 import static libs.InputUtil.*;
 

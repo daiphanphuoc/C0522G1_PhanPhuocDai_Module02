@@ -1,9 +1,12 @@
 package models;
 
-import java.time.LocalDate;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class TaiKhoan {
-    private String idTaiKhoan;
+import java.time.LocalDate;
+import java.util.Objects;
+
+public abstract class TaiKhoan implements Comparable<TaiKhoan>{
+    private int soTaiKhoan;
     private String maTaiKhoan;
     private String tenChuTaiKhoan;
     private LocalDate ngayTaoTaiKhoan;
@@ -11,20 +14,33 @@ public abstract class TaiKhoan {
     public TaiKhoan() {
     }
 
-    public TaiKhoan(String idTaiKhoan, String maTaiKhoan,
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaiKhoan taiKhoan = (TaiKhoan) o;
+        return Objects.equals(maTaiKhoan, taiKhoan.maTaiKhoan);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maTaiKhoan);
+    }
+
+    public TaiKhoan(int soTaiKhoan, String maTaiKhoan,
                     String tenChuTaiKhoan, LocalDate ngayTaoTaiLhoan) {
-        this.idTaiKhoan = idTaiKhoan;
+        this.soTaiKhoan = soTaiKhoan;
         this.maTaiKhoan = maTaiKhoan;
         this.tenChuTaiKhoan = tenChuTaiKhoan;
         this.ngayTaoTaiKhoan = ngayTaoTaiLhoan;
     }
 
-    public String getIdTaiKhoan() {
-        return idTaiKhoan;
+    public int getSoTaiKhoan() {
+        return soTaiKhoan;
     }
 
-    public void setIdTaiKhoan(String idTaiKhoan) {
-        this.idTaiKhoan = idTaiKhoan;
+    public void setSoTaiKhoan(int soTaiKhoan) {
+        this.soTaiKhoan = soTaiKhoan;
     }
 
     public String getMaTaiKhoan() {
@@ -47,16 +63,22 @@ public abstract class TaiKhoan {
         return ngayTaoTaiKhoan;
     }
 
-    public void setNgayTaoTaiLhoan(LocalDate ngayTaoTaiKhoan) {
+    public void setNgayTaoTaiKhoan(LocalDate ngayTaoTaiKhoan) {
         this.ngayTaoTaiKhoan = ngayTaoTaiKhoan;
     }
 
     @Override
     public String toString() {
-        return "idTaiKhoan='" + idTaiKhoan + '\'' +
+        return "idTaiKhoan='" + soTaiKhoan + '\'' +
                 ", maTaiKhoan='" + maTaiKhoan + '\'' +
                 ", tenChuTaiKhoan='" + tenChuTaiKhoan + '\'' +
                 ", ngayTaoTaiLhoan=" + ngayTaoTaiKhoan;
+    }
+
+
+    @Override
+    public int compareTo(@NotNull TaiKhoan o) {
+        return this.soTaiKhoan-o.soTaiKhoan;
     }
 
     public abstract String getInfo();

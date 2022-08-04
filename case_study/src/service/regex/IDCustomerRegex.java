@@ -1,13 +1,13 @@
-package regex;
+package service.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IDEmployeeRegex {
-    private static final String ID_Employee_Regex = "[eE]-[0-9]{4}";
+public class IDCustomerRegex {
+    private static final String ID_Customer_Regex = "[cC]-[0-9]{4}";
 
     public boolean validate(String iDEmployee) {
-        Pattern pattern = Pattern.compile(ID_Employee_Regex);
+        Pattern pattern = Pattern.compile(ID_Customer_Regex);
         Matcher matcher = pattern.matcher(iDEmployee);
         return matcher.matches();
     }
